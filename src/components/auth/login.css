@@ -1,0 +1,17 @@
+.login-container {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 125px;
+  z-index: 1;
+}
+
+.login-container .card {
+  width: 400px;
+  margin: auto;
+}
+
+input[type="submit"] {
+  text-align: right;
+}
