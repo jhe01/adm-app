@@ -101,7 +101,7 @@ textarea {
 }
 
 .calendar-panel-container {
-  max-height: 570px;
+  max-height: 790px;
   overflow-y: auto;
 }
 
@@ -123,4 +123,8 @@ textarea {
 
 #calendar-cmp {
   margin-bottom: 0px;
+}
+
+.filter-input .input-field {
+  margin-top: 0px;
 }

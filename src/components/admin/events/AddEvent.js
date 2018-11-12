@@ -128,10 +128,10 @@ class AddEvent extends Component {
       title,
       oneDayOnly,
       dateOfEvent: dateOfEvent
-        ? moment(dateOfEvent, "DD MMMM, YYYY").toISOString()
+        ? moment(dateOfEvent, "DD MMMM, YYYY").format("MM-DD-YYYY")
         : "",
-      from: from ? moment(from, "DD MMMM, YYYY").toISOString() : "",
-      to: to ? moment(to, "DD MMMM, YYYY").toISOString() : "",
+      from: from ? moment(from, "DD MMMM, YYYY").format("MM-DD-YYYY") : "",
+      to: to ? moment(to, "DD MMMM, YYYY").format("MM-DD-YYYY") : "",
       timeFrom,
       timeTo,
       isWholeDay,
@@ -243,7 +243,7 @@ class AddEvent extends Component {
                   onChange={this.onChange}
                   error={errors.golfClub ? errors.golfClub : ""}
                   validate={true}
-                  value={
+                  defaultValue={
                     auth.user.role_id.name !== "Global Admin"
                       ? auth.user.club_id._id
                       : ""
