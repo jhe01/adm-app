@@ -9,6 +9,7 @@ import CalendarEvents from "./CalendarEvents";
 import Sidenav from "../../template/Aside";
 import Header from "../../template/Header";
 import Cal from "./Cal";
+import { stat } from "fs";
 
 class Calendar extends Component {
   constructor(props) {
@@ -43,7 +44,7 @@ class Calendar extends Component {
   }
 
   componentDidMount() {
-    this.props.getEvents();
+    this.props.getEvents(false);
   }
 
   dayClick = (date, jsEvent, view) => {
@@ -125,7 +126,8 @@ Calendar.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  events: state.event.events
+  events: state.event.events,
+  auth: state.auth
 });
 
 export default connect(

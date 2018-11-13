@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
-import { moment } from "moment";
 
 import { getEventTypes } from "../../../actions/eventTypesActions";
 import { getEventCategory } from "../../../actions/eventCategoryActions";
@@ -13,24 +12,19 @@ import { getEvents, getEventsByClub } from "../../../actions/eventActions";
 import Header from "../../template/Header";
 import Sidenav from "../../template/Aside";
 import EventRow from "./EventRow";
-import { Row, Input, Col } from "react-materialize";
 
-import { Icon } from "react-materialize";
+import { Icon, Input } from "react-materialize";
 
 class EventList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isFilter: false,
-      keyword: "",
-      filteredEvents: []
-    };
-  }
+  state = {
+    isFilter: false,
+    keyword: "",
+    filteredEvents: []
+  };
 
   componentDidMount() {
     if (this.props.auth.user.role_id.name === "Global Admin") {
-      this.props.getEvents();
+      this.props.getEvents(true);
     } else {
       this.props.getEventsByClub(this.props.auth.user.club_id._id);
     }
@@ -50,7 +44,9 @@ class EventList extends Component {
         isFilter: true,
         keyword: e.target.value,
         filteredEvents: this.props.events.filter(event => {
-          return event.title.toLowerCase().includes(e.target.value);
+          return event.title
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase());
         })
       });
     }

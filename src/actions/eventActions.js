@@ -14,11 +14,18 @@ import withReactContent from "sweetalert2-react-content";
 
 const swAlert = withReactContent(Swal);
 
-export const getEvents = () => async dispatch => {
-  const res = await axios.get("/api/events/get");
+export const getEvents = isAdmin => async dispatch => {
+  let res = [];
+  if (isAdmin) res = await axios.get("/api/events/get_all");
+  else res = await axios.get("/api/events/get");
+
   dispatch({
     type: GET_EVENTS,
-    payload: res.data
+    payload: res.data.sort((a, b) => {
+      return (
+        new Date(b.from || b.dateOfEvent) - new Date(a.from || a.dateOfEvent)
+      );
+    })
   });
 };
 
