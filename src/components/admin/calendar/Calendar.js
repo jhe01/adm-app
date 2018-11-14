@@ -9,7 +9,6 @@ import CalendarEvents from "./CalendarEvents";
 import Sidenav from "../../template/Aside";
 import Header from "../../template/Header";
 import Cal from "./Cal";
-import { stat } from "fs";
 
 class Calendar extends Component {
   constructor(props) {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import propTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { SideNav, SideNavItem } from "react-materialize";
 
 class Header extends Component {
   render() {
@@ -13,10 +14,16 @@ class Header extends Component {
           className="blue darken-4"
         >
           <div className="nav-wrapper">
+            <a
+              href="#!"
+              data-activates="nav-sidenav"
+              className="button-collapse top-nav full hide-on-large-only"
+            >
+              <i className="material-icons">menu</i>
+            </a>
             <Link to="/" className="brand-logo" style={{ fontSize: "1.3rem" }}>
               {branding}
             </Link>
-            <ul id="nav-mobile" className="right hide-on-med-and-down" />
           </div>
         </nav>
       </div>

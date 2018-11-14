@@ -53,7 +53,7 @@ class EventList extends Component {
   };
 
   typesFilterEvents = e => {
-    if (e.target.value == 0) {
+    if (e.target.value === "0") {
       this.setState({
         isFilter: false,
         filteredEvents: []
@@ -70,7 +70,7 @@ class EventList extends Component {
   };
 
   categoryFilterEvents = e => {
-    if (e.target.value == 0) {
+    if (e.target.value === "0") {
       this.setState({
         isFilter: false,
         filteredEvents: []
@@ -95,7 +95,7 @@ class EventList extends Component {
         <Sidenav active="event-list" />
         <div className="row">
           <div style={{ marginTop: "10px" }}>
-            <div className="col s2">
+            <div className="col s12 m2">
               <Link
                 className="btn blue darken-2 header-action-btn left"
                 to="/add-event"
@@ -104,7 +104,7 @@ class EventList extends Component {
                 <Icon className="left">add</Icon>
               </Link>
             </div>
-            <div className="col s2 filter-input">
+            <div className="col s6 m2 filter-input">
               <Input
                 type="select"
                 id="filterTypes"
@@ -125,7 +125,7 @@ class EventList extends Component {
                 })}
               </Input>
             </div>
-            <div className="col s2 filter-input">
+            <div className="col s6 m2 filter-input">
               <Input
                 type="select"
                 id="filterCategory"
@@ -146,7 +146,7 @@ class EventList extends Component {
                 })}
               </Input>
             </div>
-            <div className="col s6 filter-input">
+            <div className="col s12 m6 filter-input">
               <Input
                 s={12}
                 m={12}
