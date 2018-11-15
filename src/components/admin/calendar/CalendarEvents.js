@@ -45,6 +45,11 @@ export default class CalendarEvents extends Component {
               </span>
               <p className="blue-text text-darken-4">{event.club.name}</p>
               <p>
+                <strong>
+                  {event.eventType.name} | {event.eventCategory.name}
+                </strong>
+              </p>
+              <p>
                 {event.oneDayOnly
                   ? moment(event.dateOfEvent).format("DD MMMM, YYYY")
                   : `${moment(event.from).format("DD MMMM, YYYY")} to ${moment(

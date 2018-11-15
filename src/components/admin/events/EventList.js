@@ -158,7 +158,7 @@ class EventList extends Component {
             </div>
           </div>
           <div className="col s12">
-            <table className="highlight">
+            <table className="highlight hide-on-med-and-down">
               <thead>
                 <tr>
                   <th>Event</th>
@@ -180,6 +180,53 @@ class EventList extends Component {
                     })}
               </tbody>
             </table>
+            <h5 className="hide-on-med-and-up">Events</h5>
+            <div className="hide-on-med-and-up">
+              <div className="card">
+                <div class="card-content" style={{ padding: "5px 0 0 0" }}>
+                  <div className="row">
+                    <div className="col s3">
+                      <img
+                        style={{ width: "60px" }}
+                        src="http://chittagongit.com//images/person-image-icon/person-image-icon-7.jpg"
+                        alt="Nothing"
+                      />
+                    </div>
+                    <div className="col s9">
+                      <span>
+                        <strong>This is Sample Event</strong>
+                      </span>
+                      <br />
+                      <span>Tournament | Invitational</span>
+                      <br />
+                      <span>Nov 22 to Nov 25, 2018</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="card">
+                <div class="card-content" style={{ padding: "5px 3px 0 3px" }}>
+                  <div className="row">
+                    <div className="col s3">
+                      <img
+                        style={{ width: "60px" }}
+                        src="http://chittagongit.com//images/person-image-icon/person-image-icon-7.jpg"
+                        alt="Nothing"
+                      />
+                    </div>
+                    <div className="col s9">
+                      <span>
+                        <strong>This is Sample Event</strong>
+                      </span>
+                      <br />
+                      <span>Tournament | Invitational</span>
+                      <br />
+                      <span>Nov 22 to Nov 25, 2018</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </React.Fragment>
