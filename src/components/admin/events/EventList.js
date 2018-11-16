@@ -13,7 +13,7 @@ import Header from "../../template/Header";
 import Sidenav from "../../template/Aside";
 import EventRow from "./EventRow";
 
-import { Icon, Input } from "react-materialize";
+import { Icon, Input, Button, Dropdown, NavItem } from "react-materialize";
 
 class EventList extends Component {
   state = {
@@ -182,19 +182,39 @@ class EventList extends Component {
             </table>
             <h5 className="hide-on-med-and-up">Events</h5>
             <div className="hide-on-med-and-up">
-              <div className="card">
-                <div class="card-content" style={{ padding: "5px 0 0 0" }}>
+              <div className="card card-events">
+                <div className="card-content" style={{ padding: "5px 0 0 0" }}>
                   <div className="row">
                     <div className="col s3">
                       <img
                         style={{ width: "60px" }}
-                        src="http://chittagongit.com//images/person-image-icon/person-image-icon-7.jpg"
+                        src="/api/upload/image/a442e89752224e9b59810939de36ac89.png"
                         alt="Nothing"
                       />
                     </div>
                     <div className="col s9">
+                      <Dropdown
+                        trigger={
+                          <Button className="more-btn btn-flat waves-effect waves-teal right">
+                            <i className="material-icons">more_vert</i>
+                          </Button>
+                        }
+                        options={{ constrainWidth: false }}
+                      >
+                        <NavItem>Disable</NavItem>
+                        <NavItem>Change Image</NavItem>
+                        <NavItem>Edit</NavItem>
+                      </Dropdown>
+                      {/* <a
+                        href="#!"
+                        className="waves-effect waves-teal btn-flat right more-btn"
+                      >
+                        <i className="material-icons">more_vert</i>
+                      </a> */}
                       <span>
-                        <strong>This is Sample Event</strong>
+                        <strong>
+                          This is Sample Event for the upcoming Event
+                        </strong>
                       </span>
                       <br />
                       <span>Tournament | Invitational</span>
@@ -204,13 +224,16 @@ class EventList extends Component {
                   </div>
                 </div>
               </div>
-              <div className="card">
-                <div class="card-content" style={{ padding: "5px 3px 0 3px" }}>
+              <div className="card card-events">
+                <div
+                  className="card-content"
+                  style={{ padding: "5px 3px 0 3px" }}
+                >
                   <div className="row">
                     <div className="col s3">
                       <img
                         style={{ width: "60px" }}
-                        src="http://chittagongit.com//images/person-image-icon/person-image-icon-7.jpg"
+                        src="/api/upload/image/a442e89752224e9b59810939de36ac89.png"
                         alt="Nothing"
                       />
                     </div>

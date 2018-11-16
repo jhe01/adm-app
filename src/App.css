@@ -124,3 +124,7 @@ textarea {
 .filter-input .input-field {
   margin-top: 0px;
 }
+
+.card-events .more-btn {
+  padding: 0;
+}
