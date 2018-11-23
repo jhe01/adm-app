@@ -12,6 +12,7 @@ import { getEvents, getEventsByClub } from "../../../actions/eventActions";
 import Header from "../../template/Header";
 import Sidenav from "../../template/Aside";
 import EventRow from "./EventRow";
+import ViewActionButton from "../../util/ViewActionButton";
 
 import { Icon, Input, Button, Dropdown, NavItem } from "react-materialize";
 
@@ -95,6 +96,7 @@ class EventList extends Component {
         <Sidenav active="event-list" />
         <div className="row">
           <div style={{ marginTop: "10px" }}>
+            <ViewActionButton active="list" />
             <div className="col s12 m2">
               <Link
                 className="btn blue darken-2 header-action-btn left"

@@ -128,3 +128,15 @@ textarea {
 .card-events .more-btn {
   padding: 0;
 }
+
+.view-type-action a.btn {
+  border-radius: 0px;
+}
+
+.view-type-action a i.material-icons {
+  margin-right: 0;
+}
+
+.view-type-action a.active {
+  background-color: #0d47a1 !important;
+}

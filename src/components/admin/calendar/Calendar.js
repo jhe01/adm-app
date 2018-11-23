@@ -9,6 +9,7 @@ import CalendarEvents from "./CalendarEvents";
 import Sidenav from "../../template/Aside";
 import Header from "../../template/Header";
 import Cal from "./Cal";
+import ViewActionButton from "../../util/ViewActionButton";
 
 class Calendar extends Component {
   constructor(props) {
@@ -76,6 +77,7 @@ class Calendar extends Component {
         <div style={{ marginTop: "10px" }}>
           <Sidenav active="calendar-of-events" />
           <div id="calendar-cmp" className="row">
+            <ViewActionButton active="calendar" />
             <div className="col s12 m12 l8">
               <Cal
                 events={calendarEvents}
