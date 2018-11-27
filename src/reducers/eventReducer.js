@@ -37,27 +37,25 @@ export default function(state = initialState, action) {
     case UPDATE_EVENT:
       return {
         ...state,
-        events: state.events.map(
-          event =>
-            event._id === action.payload._id ? (event = action.payload) : event
+        events: state.events.map(event =>
+          event._id === action.payload._id ? (event = action.payload) : event
         ),
         event: action.payload
       };
     case CHANGE_STATUS_EVENT:
       return {
         ...state,
-        events: state.events.map(
-          event =>
-            event._id === action.payload._id ? (event = action.payload) : event
+        events: state.events.map(event =>
+          event._id === action.payload._id ? (event = action.payload) : event
         )
       };
     case UPLOAD_EVENT_BANNER:
       return {
         ...state,
-        events: state.events.map(
-          event =>
-            event._id === action.payload._id ? (event = action.payload) : event
-        )
+        events: state.events.map(event =>
+          event._id === action.payload._id ? (event = action.payload) : event
+        ),
+        event: action.payload
       };
     default:
       return state;

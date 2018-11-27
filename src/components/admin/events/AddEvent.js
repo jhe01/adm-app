@@ -98,32 +98,6 @@ class AddEvent extends Component {
       details,
       isPublic
     } = this.state;
-
-    // if (title === "") {
-    //   this.setState({ errors: { title: "Title is Required" } });
-    //   return;
-    // }
-    // if (isWholeDay && dateOfEvent === "") {
-    //   this.setState({ errors: { dateOfEvent: "Date of Event is Required" } });
-    //   return;
-    // }
-    // if (!isWholeDay && from === "" && to === "") {
-    //   this.setState({
-    //     errors: { from: "From date is Required", to: "To date is Required" }
-    //   });
-    //   return;
-    // }
-    // if (eventType === "") {
-    //   this.setState({ errors: { eventType: "Event Type is Required" } });
-    //   return;
-    // }
-    // if (eventCategory === "") {
-    //   this.setState({
-    //     errors: { eventCategory: "Event Category is Required" }
-    //   });
-    //   return;
-    // }
-
     const newEvent = {
       title,
       oneDayOnly,
@@ -143,25 +117,6 @@ class AddEvent extends Component {
       isPublic
     };
     this.props.addEvent(newEvent, this.props.history);
-
-    // this.setState({
-    //   title: "",
-    //   dateOfEvent: "",
-    //   from: "",
-    //   to: "",
-    //   timeFrom: "",
-    //   timeTo: "",
-    //   isWholeDay: false,
-    //   golfClub: "",
-    //   eventType: "",
-    //   eventCategory: "",
-    //   numberOfPlayers: 0,
-    //   details: "",
-    //   isPublic: true,
-    //   errors: {}
-    // });
-
-    //this.props.history.push("/events");
   };
 
   modules = {

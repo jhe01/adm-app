@@ -65,7 +65,7 @@ class Calendar extends Component {
           .format("MM-DD-YYYY")
       );
     });
-    console.log("Test");
+
     this.setState({ selectedEvents: s, dateClicked: dateClicked });
   };
 

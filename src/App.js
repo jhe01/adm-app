@@ -12,6 +12,7 @@ import Calendar from "./components/admin/calendar/Calendar";
 import EventList from "./components/admin/events/EventList";
 import AddEvent from "./components/admin/events/AddEvent";
 import EditEvent from "./components/admin/events/EditEvent";
+import Event from "./components/admin/events/Event";
 // Test
 import Contact from "./components/Contact";
 import User from "./components/User";
@@ -73,6 +74,7 @@ class App extends Component {
                 <Route exact path="/calendar" component={Calendar} />
                 {/* @route - Events */}
                 <PrivateRoute exact path="/events" component={EventList} />
+                <PrivateRoute exact path="/event/:id" component={Event} />
                 <PrivateRoute exact path="/add-event" component={AddEvent} />
                 <PrivateRoute
                   exact

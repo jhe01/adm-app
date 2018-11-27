@@ -135,5 +135,8 @@ export const uploadBannerEvent = event => async dispatch => {
         timer: 1300
       });
     })
-    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+    .catch(err => {
+      console.log(err.response);
+      dispatch({ type: GET_ERRORS, payload: err.response.err });
+    });
 };

@@ -4,7 +4,7 @@ import moment from "moment";
 
 import PropTypes from "prop-types";
 
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Icon } from "react-materialize";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -69,10 +69,14 @@ class EventRow extends Component {
       });
   };
 
+  onEventClick = () => {
+    return <Redirect push to="/event" />;
+  };
+
   render() {
     const { event } = this.props;
     return (
-      <tr>
+      <tr onClick={this.onEvenClick}>
         <td>{event.title}</td>
         <td>{event.club ? event.club.name : ""}</td>
         <td>{event.eventType ? event.eventType.name : ""}</td>
@@ -88,7 +92,7 @@ class EventRow extends Component {
           {event.is_active ? "Enabled" : "Disabled"}
         </td>
         <td>
-          <a
+          {/* <a
             href="#!"
             onClick={this.onClickDisable}
             className="btn red darken-2 action-btn"
@@ -108,6 +112,12 @@ class EventRow extends Component {
             className="btn blue darken-2 action-btn"
           >
             <Icon>edit</Icon>
+          </Link> */}
+          <Link
+            to={`/event/${event._id}`}
+            className="btn blue darken-2 action-btn"
+          >
+            <Icon>visibility</Icon>
           </Link>
         </td>
       </tr>

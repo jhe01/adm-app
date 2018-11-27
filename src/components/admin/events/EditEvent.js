@@ -128,31 +128,6 @@ class EditEvent extends Component {
       isPublic
     } = this.state;
 
-    // if (title === "") {
-    //   this.setState({ errors: { title: "Title is Required" } });
-    //   return;
-    // }
-    // if (isWholeDay && dateOfEvent === "") {
-    //   this.setState({ errors: { dateOfEvent: "Date of Event is Required" } });
-    //   return;
-    // }
-    // if (!isWholeDay && from === "" && to === "") {
-    //   this.setState({
-    //     errors: { from: "From date is Required", to: "To date is Required" }
-    //   });
-    //   return;
-    // }
-    // if (eventType === "") {
-    //   this.setState({ errors: { eventType: "Event Type is Required" } });
-    //   return;
-    // }
-    // if (eventCategory === "") {
-    //   this.setState({
-    //     errors: { eventCategory: "Event Category is Required" }
-    //   });
-    //   return;
-    // }
-
     const updEvent = {
       _id: this.props.event._id,
       title,
@@ -172,6 +147,7 @@ class EditEvent extends Component {
       details,
       isPublic
     };
+    // console.log(updEvent);
     this.props.updateEvent(updEvent, this.props.history);
   };
 
@@ -460,7 +436,7 @@ class EditEvent extends Component {
                   s={12}
                   m={4}
                   label="Number of Players"
-                  labelClassName={numberOfPlayers ? "active" : ""}
+                  labelClassName={numberOfPlayers >= 0 ? "active" : ""}
                   name="numberOfPlayers"
                   id="numberOfPlayers"
                   value={numberOfPlayers}
