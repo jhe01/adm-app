@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import moment from "moment";
 
-import { getEvent, uploadBannerEvent } from "../../../actions/eventActions";
+import {
+  getEvent,
+  uploadBannerEvent,
+  changeStatusEvent
+} from "../../../actions/eventActions";
 
 import { Button, Icon } from "react-materialize";
 
@@ -33,7 +37,8 @@ class Event extends Component {
       isWholeDay: false,
       timeTo: "",
       timeFrom: "",
-      id: ""
+      id: "",
+      is_active: true
     };
     this.swAlert = withReactContent(Swal);
   }
@@ -55,7 +60,8 @@ class Event extends Component {
         isWholeDay,
         timeTo,
         timeFrom,
-        _id
+        _id,
+        is_active
       } = nextProps.event;
       this.setState({
         id: _id,
@@ -72,14 +78,40 @@ class Event extends Component {
         banner,
         timeTo,
         timeFrom,
-        isWholeDay
+        isWholeDay,
+        is_active
       });
     }
   }
   componentDidMount() {
     this.props.getEvent(this.props.match.params.id);
   }
-
+  onClickDisable = () => {
+    if (this.props.event.is_active) {
+      this.swAlert
+        .fire({
+          title: (
+            <div>
+              <h5>Are you sure?</h5>
+              <p style={{ fontSize: "1.3rem" }}>
+                Event "{this.props.event.title}" will be disabled!
+              </p>
+            </div>
+          ),
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes",
+          confirmButtonClass: "blue darken-2"
+        })
+        .then(result => {
+          if (result.value) {
+            this.props.changeStatusEvent(this.props.event);
+          }
+        });
+    } else {
+      this.props.changeStatusEvent(this.props.event);
+    }
+  };
   onClickUploadImage = () => {
     this.swAlert
       .fire({
@@ -118,11 +150,12 @@ class Event extends Component {
       id,
       timeFrom,
       timeTo,
-      isWholeDay
+      isWholeDay,
+      is_active
     } = this.state;
-    console.log(this.state);
+
     const createMarkUp = () => {
-      return { __html: details };
+      return { __html: details !== "" ? details : "No Details." };
     };
     const displayDeleteImgBtn = (
       <button
@@ -140,6 +173,24 @@ class Event extends Component {
         <i className="material-icons">photo_camera</i>
       </button>
     );
+    const displayEnableBtn = (
+      <Button
+        waves="light"
+        className="red darken-2 action-btn"
+        onClick={this.onClickDisable}
+      >
+        Enable <Icon left>check</Icon>
+      </Button>
+    );
+    const displayDisableBtn = (
+      <Button
+        waves="light"
+        className="red darken-2 action-btn"
+        onClick={this.onClickDisable}
+      >
+        Disable <Icon left>clear</Icon>
+      </Button>
+    );
     return (
       <React.Fragment>
         <Header branding={`Event - ${title}`} />
@@ -152,10 +203,7 @@ class Event extends Component {
             >
               EDIT<Icon left>edit</Icon>
             </Link>
-
-            <Button waves="light" className="red darken-2 action-btn">
-              Disable<Icon left>clear</Icon>
-            </Button>
+            {is_active ? displayDisableBtn : displayEnableBtn}
             <div className="row" style={{ marginTop: "5px" }}>
               <div className="col s12 m3">
                 <div className="card">
@@ -179,7 +227,7 @@ class Event extends Component {
                     <p>
                       Date:{" "}
                       <strong>
-                        {!isWholeDay
+                        {!oneDayOnly
                           ? moment(from, "MM-DD-YYYY").format("DD MMMM, YYYY") +
                             " to " +
                             moment(to, "MM-DD-YYYY").format("DD MMMM, YYYY")
@@ -212,7 +260,8 @@ class Event extends Component {
 Event.propType = {
   event: PropTypes.object.isRequired,
   getEvent: PropTypes.func.isRequired,
-  uploadBannerEvent: PropTypes.func.isRequired
+  uploadBannerEvent: PropTypes.func.isRequired,
+  changeStatusEvent: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -221,5 +270,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getEvent, uploadBannerEvent }
+  { getEvent, uploadBannerEvent, changeStatusEvent }
 )(Event);

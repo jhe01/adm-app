@@ -62,10 +62,10 @@ class EditEvent extends Component {
       this.setState({
         title,
         dateOfEvent: dateOfEvent
-          ? moment(dateOfEvent).format("DD MMMM, YYYY")
+          ? moment(dateOfEvent, "MM-DD-YYYY").format("DD MMMM, YYYY")
           : "",
-        from: from ? moment(from).format("DD MMMM, YYYY") : "",
-        to: to ? moment(to).format("DD MMMM, YYYY") : "",
+        from: from ? moment(from, "MM-DD-YYYY").format("DD MMMM, YYYY") : "",
+        to: to ? moment(to, "MM-DD-YYYY").format("DD MMMM, YYYY") : "",
         timeFrom: timeFrom ? timeFrom : "",
         timeTo: timeTo ? timeTo : "",
         isWholeDay: isWholeDay ? isWholeDay : true,
@@ -147,18 +147,18 @@ class EditEvent extends Component {
       details,
       isPublic
     };
-    // console.log(updEvent);
+
     this.props.updateEvent(updEvent, this.props.history);
   };
 
   quillOnChange = (content, delta, source, editor) => {
-    this.setState({ details: content });
+    this.setState({ details: content === "<p><br></p>" ? "" : content });
   };
 
   modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      [{ align: [] }],
+      [{ align: ["center", "left", "right"] }],
       ["bold", "italic", "underline", "strike", "blockquote"],
       [
         { list: "ordered" },
@@ -181,7 +181,8 @@ class EditEvent extends Component {
     "list",
     "bullet",
     "indent",
-    "link"
+    "link",
+    "align"
   ];
 
   render() {
@@ -262,18 +263,6 @@ class EditEvent extends Component {
                     );
                   })}
                 </Input>
-                {/* <Input
-                  type="checkbox"
-                  name="oneDayOnly"
-                  s={12}
-                  m={3}
-                  label="One day only?"
-                  className="chkOneDayOnly"
-                  id="chkOneDayOnly"
-                  checked={oneDayOnly ? true : false}
-                  onChange={this.onChange}
-                  validate={true}
-                /> */}
                 <Input
                   type="select"
                   label="One day only?"
@@ -294,18 +283,6 @@ class EditEvent extends Component {
                   oneDayOnly ? "row-date-range" : "row-date-range hide"
                 }
               >
-                {/* <Input
-                  type="checkbox"
-                  name="isWholeDay"
-                  s={12}
-                  m={3}
-                  label="Whole day?"
-                  className="chkIsWholeDay"
-                  id="chkIsWholeDay"
-                  checked={isWholeDay ? true : false}
-                  onChange={this.onChange}
-                  validate={true}
-                /> */}
                 <Input
                   type="select"
                   label="Whole day?"
@@ -330,11 +307,7 @@ class EditEvent extends Component {
                   className="datepicker"
                   onChange={this.onChange}
                   error={errors.dateOfEvent ? errors.dateOfEvent : ""}
-                  value={
-                    dateOfEvent
-                      ? moment(dateOfEvent).format("DD MMMM, YYYY")
-                      : ""
-                  }
+                  value={dateOfEvent ? dateOfEvent : ""}
                   validate={true}
                 />
                 <Input
@@ -374,7 +347,7 @@ class EditEvent extends Component {
                   labelClassName={from ? "active" : ""}
                   className="datepicker"
                   onChange={this.onChange}
-                  value={from ? moment(from).format("DD MMMM, YYYY") : ""}
+                  value={from ? from : ""}
                   error={errors.from ? errors.from : ""}
                   validate={true}
                 />
@@ -386,7 +359,7 @@ class EditEvent extends Component {
                   label="To"
                   labelClassName={to ? "active" : ""}
                   onChange={this.onChange}
-                  value={to ? moment(to).format("DD MMMM, YYYY") : ""}
+                  value={to ? to : ""}
                   error={errors.to ? errors.to : ""}
                   validate={true}
                 />
@@ -447,19 +420,7 @@ class EditEvent extends Component {
               </Row>
             </Col>
             <Col s={12} m={6}>
-              <Row>
-                {/* <Input
-                  type="textarea"
-                  s={12}
-                  id="details"
-                  label="Details"
-                  name="details"
-                  labelClassName={details ? "active" : ""}
-                  value={details}
-                  onChange={this.onChange}
-                  style={{ minHeight: "355px" }}
-                /> */}
-              </Row>
+              <Row />
               <Row>
                 <h6>Details</h6>
                 <ReactQuill

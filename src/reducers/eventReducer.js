@@ -47,7 +47,8 @@ export default function(state = initialState, action) {
         ...state,
         events: state.events.map(event =>
           event._id === action.payload._id ? (event = action.payload) : event
-        )
+        ),
+        event: action.payload
       };
     case UPLOAD_EVENT_BANNER:
       return {
