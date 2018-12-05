@@ -88,6 +88,12 @@ footer {
   }
 }
 
+@media only screen and (max-width: 360px) {
+  .fc-basic-view .fc-body .fc-row {
+    min-height: 8rem;
+  }
+}
+
 textarea {
   min-height: 5rem !important;
 }

@@ -59,8 +59,8 @@ class Aside extends Component {
     return (
       <SideNav
         id="nav-sidenav"
-        trigger={<Button />}
-        options={{ closeOnClick: false }}
+        trigger={<Button className="hide" />}
+        options={{ closeOnClick: true }}
         fixed={true}
       >
         <SideNavItem href="#!icon" className="sidenav-header">
