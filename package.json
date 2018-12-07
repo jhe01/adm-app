@@ -13,6 +13,7 @@
     "moment": "^2.22.2",
     "react": "^16.5.2",
     "react-ckeditor-component": "^1.1.0",
+    "react-device-detect": "^1.6.1",
     "react-dom": "^16.5.2",
     "react-materialize": "^2.4.7",
     "react-quill": "^1.3.2",

@@ -62,6 +62,36 @@ footer {
   width: 100%;
 }
 
+@media only screen and (max-width: 360px) {
+  .fc-basic-view .fc-body .fc-row {
+    min-height: 8rem;
+  }
+
+  .calendar-panel-container {
+    max-height: 100%;
+  }
+  .header-text {
+    margin: auto;
+    font-size: 1.1rem;
+  }
+}
+
+@media only screen and (min-width: 361px) {
+  .fc-basic-view .fc-body .fc-row {
+    min-height: 8rem;
+  }
+
+  .header-text {
+    font-size: 1.3rem;
+    margin-left: 5px;
+  }
+
+  .calendar-panel-container {
+    max-height: 730px;
+    overflow-y: auto;
+  }
+}
+
 @media only screen and (min-width: 992px) {
   body {
     padding-left: 300px;
@@ -94,11 +124,6 @@ textarea {
 
 .ql-editor {
   min-height: 400px !important;
-}
-
-.calendar-panel-container {
-  max-height: 790px;
-  overflow-y: auto;
 }
 
 ::-webkit-scrollbar {

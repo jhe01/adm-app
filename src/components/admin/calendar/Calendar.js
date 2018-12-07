@@ -33,9 +33,11 @@ class Calendar extends Component {
           title: event.title,
           allDay: event.isWholeDay,
           start: event.oneDayOnly
-            ? moment(event.dateOfEvent)
-            : moment(event.from),
-          end: event.oneDayOnly ? "" : moment(event.to).add(1, "d")
+            ? moment(event.dateOfEvent, "MM-DD-YYYY")
+            : moment(event.from, "MM-DD-YYYY"),
+          end: event.oneDayOnly
+            ? ""
+            : moment(event.to, "MM-DD-YYYY").add(1, "d")
         });
       });
       this.setState({ calendarEvents: evs, events: events });
@@ -48,19 +50,19 @@ class Calendar extends Component {
   }
 
   dayClick = (date, jsEvent, view) => {
-    const dateClicked = moment(date).format("MM-DD-YYYY");
+    const dateClicked = moment(date, "x").format("MM-DD-YYYY");
     const { events } = this.props;
-    console.log(date + " " + dateClicked);
     this.filterEvents(events, date, dateClicked);
   };
 
   filterEvents = (events, date, dateClicked) => {
     const s = events.filter(event => {
-      return moment(date).isBetween(
-        moment(event.oneDayOnly ? event.dateOfEvent : event.from).format(
+      return moment(date, "MM-DD-YYYY").isBetween(
+        moment(
+          event.oneDayOnly ? event.dateOfEvent : event.from,
           "MM-DD-YYYY"
-        ),
-        moment(event.oneDayOnly ? event.dateOfEvent : event.to)
+        ).format("MM-DD-YYYY"),
+        moment(event.oneDayOnly ? event.dateOfEvent : event.to, "MM-DD-YYYY")
           .add(1, "d")
           .format("MM-DD-YYYY")
       );
@@ -78,14 +80,14 @@ class Calendar extends Component {
           <Sidenav active="calendar-of-events" />
           <div id="calendar-cmp" className="row">
             <ViewActionButton active="calendar" />
-            <div className="col s12 m12 l8">
+            <div className="col s12 m12 l9">
               <Cal
                 events={calendarEvents}
                 dayClick={this.dayClick}
                 goToDate={this.state.dateClicked}
               />
             </div>
-            <div className="col s12 m12 l4">
+            <div className="col s12 m12 l3">
               <div className="row">
                 <div className="col s6 m6">
                   <h6>List of Events</h6>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import FullCalendar from "fullcalendar-reactwrapper";
 import moment from "moment";
 import PropTypes from "prop-types";
+import { isMobile } from "react-device-detect";
 
 class Cal extends Component {
   constructor() {
@@ -35,6 +36,7 @@ class Cal extends Component {
               ? this.props.goToDate
               : moment().format("YYYY-MM-DD")
           }
+          height={isMobile ? 900 : 800}
         />
       </div>
     );

@@ -52,9 +52,11 @@ export default class CalendarEvents extends Component {
               <p>
                 {event.oneDayOnly
                   ? moment(event.dateOfEvent).format("DD MMMM, YYYY")
-                  : `${moment(event.from).format("DD MMMM, YYYY")} to ${moment(
-                      event.to
-                    ).format("DD MMMM, YYYY")} `}
+                  : `${moment(event.from, "MM-DD-YYYY").format(
+                      "DD MMMM, YYYY"
+                    )} to ${moment(event.to, "MM-DD-YYYY").format(
+                      "DD MMMM, YYYY"
+                    )} `}
               </p>
             </div>
           </div>

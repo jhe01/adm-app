@@ -21,9 +21,7 @@ class Header extends Component {
             >
               <i className="material-icons">menu</i>
             </a>
-            <Link to="/" className="brand-logo" style={{ fontSize: "1.3rem" }}>
-              {branding}
-            </Link>
+            <label className="header-text white-text">{branding}</label>
           </div>
         </nav>
       </div>
