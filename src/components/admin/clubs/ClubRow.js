@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Icon } from "react-materialize";
+import { Icon, Button, Dropdown } from "react-materialize";
 import { Link } from "react-router-dom";
+import { isMobile } from "react-device-detect";
+
 import {
   changeStatusGolfClub,
   updateGolfClub,
@@ -59,24 +61,50 @@ class ClubRow extends Component {
     return (
       <tr key={club._id}>
         <td>{club.name}</td>
-        <td>{club.courses.map(course => course.name + ", ")}</td>
+        {isMobile ? (
+          ""
+        ) : (
+          <td>{club.courses.map(course => course.name + ", ")}</td>
+        )}
         <td className="grey-text text-lighten-1">
           {club.is_active ? "Enabled" : "Disabled"}
         </td>
         <td>
-          <a
-            href="#!"
-            onClick={this.onClickDisable}
-            className="btn red darken-2 action-btn"
-          >
-            <Icon>{club.is_active ? "clear" : "check"}</Icon>
-          </a>
-          <Link
-            to={`/edit-club/${club._id}`}
-            className="btn blue darken-2 action-btn"
-          >
-            <Icon>edit</Icon>
-          </Link>
+          {isMobile ? (
+            <Dropdown
+              trigger={
+                <Button className="more-btn btn-flat waves-effect waves-teal right">
+                  <i className="material-icons">more_vert</i>
+                </Button>
+              }
+              options={{ constrainWidth: false }}
+            >
+              <li>
+                <a href="#!" onClick={this.onClickDisable}>
+                  {club.is_active ? "DISABLE" : "ENABLE"}
+                </a>
+              </li>
+              <li>
+                <Link to={`/edit-club/${club._id}`}>EDIT</Link>
+              </li>
+            </Dropdown>
+          ) : (
+            <React.Fragment>
+              <a
+                href="#!"
+                onClick={this.onClickDisable}
+                className="btn red darken-2 action-btn"
+              >
+                <Icon>{club.is_active ? "clear" : "check"}</Icon>
+              </a>
+              <Link
+                to={`/edit-club/${club._id}`}
+                className="btn blue darken-2 action-btn"
+              >
+                <Icon>edit</Icon>
+              </Link>
+            </React.Fragment>
+          )}
         </td>
       </tr>
     );

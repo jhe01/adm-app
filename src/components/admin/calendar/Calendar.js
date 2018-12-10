@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { isMobile } from "react-device-detect";
 
+import { getEventTypes } from "../../../actions/eventTypesActions";
+import { getEventCategory } from "../../../actions/eventCategoryActions";
+import { getClubs } from "../../../actions/clubActions";
 import { getEvents } from "../../../actions/eventActions";
 
 import CalendarEvents from "./CalendarEvents";
@@ -47,6 +52,9 @@ class Calendar extends Component {
 
   componentDidMount() {
     this.props.getEvents(false);
+    this.props.getClubs();
+    this.props.getEventCategory();
+    this.props.getEventTypes();
   }
 
   dayClick = (date, jsEvent, view) => {
@@ -78,6 +86,18 @@ class Calendar extends Component {
         <Header branding="Calendar of Events" />
         <div style={{ marginTop: "10px" }}>
           <Sidenav active="calendar-of-events" />
+          {isMobile ? (
+            <div className="fixed-action-btn">
+              <Link
+                to="/add-event"
+                className="btn-floating waves-effect waves-light blue darken-4"
+              >
+                <i className="material-icons">add</i>
+              </Link>
+            </div>
+          ) : (
+            ""
+          )}
           <div id="calendar-cmp" className="row">
             <ViewActionButton active="calendar" />
             <div className="col s12 m12 l9">
@@ -125,6 +145,9 @@ class Calendar extends Component {
 
 Calendar.propTypes = {
   events: PropTypes.array.isRequired,
+  getEventTypes: PropTypes.func.isRequired,
+  getClubs: PropTypes.func.isRequired,
+  getEventCategory: PropTypes.func.isRequired,
   getEvents: PropTypes.func.isRequired
 };
 
@@ -135,5 +158,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getEvents }
+  { getEvents, getEventCategory, getEventTypes, getClubs }
 )(Calendar);

@@ -56,6 +56,13 @@ export default function EventListMobile(props) {
                           " to " +
                           moment(event.to, "MM-DD-YYYY").format("MMM DD, YYYY")}
                     </span>
+                    {event.oneDayOnly && !event.isWholeDay ? (
+                      <React.Fragment>
+                        <span> | {event.timeFrom + " to " + event.timeTo}</span>
+                      </React.Fragment>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
               </div>

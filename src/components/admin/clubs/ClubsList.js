@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { isMobile } from "react-device-detect";
 
 import { getClubs } from "../../../actions/clubActions";
 
@@ -31,20 +32,31 @@ class ClubsList extends Component {
         <Sidenav active="club-list" />
         <div className="row">
           <div style={{ marginTop: "10px" }}>
-            <Link
-              className="btn blue darken-2 header-action-btn left"
-              to="/add-club"
-            >
-              Add Golf Club
-              <Icon className="left">add</Icon>
-            </Link>
+            {!isMobile ? (
+              <Link
+                className="btn blue darken-2 header-action-btn left"
+                to="/add-club"
+              >
+                Add Golf Club
+                <Icon className="left">add</Icon>
+              </Link>
+            ) : (
+              <div className="fixed-action-btn">
+                <Link
+                  to="/add-club"
+                  className="btn-floating waves-effect waves-light blue darken-4"
+                >
+                  <i className="material-icons">add</i>
+                </Link>
+              </div>
+            )}
           </div>
           <div className="col s12">
             <table className="highlight">
               <thead>
                 <tr>
                   <th>Golf Club</th>
-                  <th>Courses</th>
+                  {isMobile ? "" : <th>Courses</th>}
                   <th />
                   <th />
                 </tr>

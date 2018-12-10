@@ -22,32 +22,32 @@ class UserRow extends Component {
     //console.log(this.props.club);
   }
 
-  onClickDisable = () => {
-    if (this.props.user.is_active) {
-      this.swAlert
-        .fire({
-          title: (
-            <div>
-              <h5>Are you sure?</h5>
-              <p style={{ fontSize: "1.3rem" }}>
-                User "{this.props.user.name}" will be disabled!
-              </p>
-            </div>
-          ),
-          type: "warning",
-          showCancelButton: true,
-          confirmButtonText: "Yes",
-          confirmButtonClass: "blue darken-2"
-        })
-        .then(result => {
-          if (result.value) {
-            this.props.changeStatusUser(this.props.user);
-          }
-        });
-    } else {
-      this.props.changeStatusUser(this.props.user);
-    }
-  };
+  // onClickDisable = () => {
+  //   if (this.props.user.is_active) {
+  //     this.swAlert
+  //       .fire({
+  //         title: (
+  //           <div>
+  //             <h5>Are you sure?</h5>
+  //             <p style={{ fontSize: "1.3rem" }}>
+  //               User "{this.props.user.name}" will be disabled!
+  //             </p>
+  //           </div>
+  //         ),
+  //         type: "warning",
+  //         showCancelButton: true,
+  //         confirmButtonText: "Yes",
+  //         confirmButtonClass: "blue darken-2"
+  //       })
+  //       .then(result => {
+  //         if (result.value) {
+  //           this.props.changeStatusUser(this.props.user);
+  //         }
+  //       });
+  //   } else {
+  //     this.props.changeStatusUser(this.props.user);
+  //   }
+  // };
 
   render() {
     const { user } = this.props;
@@ -60,13 +60,14 @@ class UserRow extends Component {
           {user.is_active ? "Enabled" : "Disabled"}
         </td>
         <td>
-          <a
-            href="#!"
-            onClick={this.onClickDisable}
+          <button
+            onClick={() => {
+              this.props.onClickDisable(user);
+            }}
             className="btn red darken-2 action-btn"
           >
             <Icon>{user.is_active ? "clear" : "check"}</Icon>
-          </a>
+          </button>
           <Link
             to={`/change-pass/${user._id}`}
             className="btn teal darken-2 action-btn"
@@ -87,8 +88,7 @@ class UserRow extends Component {
 }
 
 UserRow.propTypes = {
-  user: PropTypes.object.isRequired,
-  changeStatusUser: PropTypes.func.isRequired
+  user: PropTypes.object.isRequired
 };
 
 export default connect(

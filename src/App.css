@@ -17,6 +17,10 @@ footer {
   padding: 0.612rem 0 0.512rem 0;
 }
 
+.side-nav .sidenav-header a h4 {
+  padding: 0.5rem 0;
+}
+
 .collapsible-header {
   padding: 0 2rem !important;
   color: rgba(0, 0, 0, 0.87) !important;
@@ -150,7 +154,8 @@ textarea {
   margin-top: 0px;
 }
 
-.card-events .more-btn {
+.card-events .more-btn,
+.card-users .more-btn {
   padding: 0;
 }
 

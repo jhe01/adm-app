@@ -143,7 +143,6 @@ class Event extends Component {
       to,
       eventType,
       eventCategory,
-      numberOfPlayers,
       banner,
       details,
       oneDayOnly,
@@ -236,6 +235,13 @@ class Event extends Component {
                             )}
                       </strong>
                     </p>
+                    {oneDayOnly && !isWholeDay ? (
+                      <p>
+                        Time: <strong>{timeFrom + " to " + timeTo}</strong>
+                      </p>
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <div className="card-action">
                     <a href="#!" className="blue-text text-darken-2 disabled">

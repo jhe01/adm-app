@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import propTypes from "prop-types";
-import { Link } from "react-router-dom";
-import { SideNav, SideNavItem } from "react-materialize";
 
 class Header extends Component {
   render() {
