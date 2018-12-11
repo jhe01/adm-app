@@ -46,7 +46,7 @@ class AddClub extends Component {
           <Row>
             <Input
               s={12}
-              m={12}
+              m={6}
               label="Name"
               type="text"
               name="name"
@@ -57,7 +57,7 @@ class AddClub extends Component {
           <Row>
             <Input
               s={12}
-              m={12}
+              m={6}
               label="Description"
               type="textarea"
               name="description"

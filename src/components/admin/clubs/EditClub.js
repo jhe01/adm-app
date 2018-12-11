@@ -228,7 +228,9 @@ class EditClub extends Component {
             </Row>
             {!isMobile ? (
               <Row>
-                <input type="submit" value="Save" className="btn btn-sm" />
+                <button type="submit" className="btn btn-sm blue darken-4">
+                  SAVE
+                </button>
               </Row>
             ) : (
               ""
