@@ -20,6 +20,7 @@ import User from "./components/User";
 import ClubsList from "./components/admin/clubs/ClubsList";
 import AddClub from "./components/admin/clubs/AddClub";
 import EditClub from "./components/admin/clubs/EditClub";
+import Club from "./components/admin/clubs/Club";
 // User
 import UsersList from "./components/admin/users/UsersList";
 import AddUser from "./components/admin/users/AddUser";
@@ -89,6 +90,7 @@ class App extends Component {
                   path="/edit-club/:id"
                   component={EditClub}
                 />
+                <PrivateRoute exact path="/club/:id" component={Club} />
                 {/* @route - Users */}
                 <PrivateRoute exact path="/users" component={UsersList} />
                 <PrivateRoute exact path="/add-user" component={AddUser} />
