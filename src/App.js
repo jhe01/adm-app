@@ -31,6 +31,7 @@ import Login from "./components/auth/Login";
 
 import "fullcalendar-reactwrapper/dist/css/fullcalendar.min.css";
 import "./App.css";
+import "./assets/main.css";
 import setAuthToken from "./util/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/userActions";
 

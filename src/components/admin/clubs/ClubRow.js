@@ -103,6 +103,12 @@ class ClubRow extends Component {
               >
                 <Icon>edit</Icon>
               </Link>
+              <Link
+                to={`/club/${club._id}`}
+                className="btn blue-grey lighten-3 action-btn"
+              >
+                <Icon>more_horiz</Icon>
+              </Link>
             </React.Fragment>
           )}
         </td>
