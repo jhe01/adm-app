@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function ClubGallery(props) {
   return (
@@ -19,9 +20,12 @@ export default function ClubGallery(props) {
                     ""
                   )}
 
-                  <button className="btn-floating halfway-fab waves-effect waves-light blue-grey lighten-3">
-                    <i className="material-icons">more_horiz</i>
-                  </button>
+                  <Link
+                    className="btn-floating halfway-fab waves-effect grey lighten-4"
+                    to={`/club/${album.club_id}/album/${album._id}`}
+                  >
+                    <i className="material-icons black-text">more_horiz</i>
+                  </Link>
                 </div>
                 <div className="card-content">
                   <span className="card-title">{album.name}</span>

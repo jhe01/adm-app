@@ -87,6 +87,9 @@ class ClubRow extends Component {
               <li>
                 <Link to={`/edit-club/${club._id}`}>EDIT</Link>
               </li>
+              <li>
+                <Link to={`/club/${club._id}`}>VIEW</Link>
+              </li>
             </Dropdown>
           ) : (
             <React.Fragment>

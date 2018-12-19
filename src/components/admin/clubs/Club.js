@@ -10,7 +10,9 @@ import {
   uploadClubFacilityFairwayImage,
   deleteClubFacilityFairwayImage,
   addClubAlbum,
-  addClubPRF
+  addClubPolicy,
+  addClubService,
+  addClubFacility
 } from "../../../actions/clubActions";
 
 import Swal from "sweetalert2";
@@ -24,6 +26,8 @@ import ImageButton from "../util/ImageButton";
 import ClubFacilityImages from "./ClubFacilityImages";
 import ClubFairwaysImages from "./ClubFairwaysImages";
 import ClubPolicyList from "./policy/ClubPolicyList";
+import ClubServicesList from "./services/ClubServicesList";
+import ClubFacilityList from "./facility/ClubFacilityList";
 import ClubGallery from "./ClubGallery";
 import ClubImage from "../util/ClubImage";
 
@@ -140,7 +144,7 @@ class Club extends Component {
       });
   };
 
-  onClickAddPRF = type => {
+  onClickAddPolicy = type => {
     this.swAlert
       .fire({
         title: `Add ${type.toUpperCase()}`,
@@ -157,7 +161,51 @@ class Club extends Component {
           prf.name = result.value;
           prf.type = type;
 
-          this.props.addClubPRF(prf);
+          this.props.addClubPolicy(prf);
+        }
+      });
+  };
+
+  onClickAddService = type => {
+    this.swAlert
+      .fire({
+        title: `Add ${type.toUpperCase()}`,
+        input: "text",
+        inputPlaceholder: `${type.toUpperCase()} Name ...`,
+        inputValidator: value => {
+          return !value && "Name is Required!";
+        }
+      })
+      .then(result => {
+        if (result.value) {
+          let prf = {};
+          prf.clubid = this.state.club._id;
+          prf.name = result.value;
+          prf.type = type;
+
+          this.props.addClubService(prf);
+        }
+      });
+  };
+
+  onClickAddFacility = type => {
+    this.swAlert
+      .fire({
+        title: `Add ${type.toUpperCase()}`,
+        input: "text",
+        inputPlaceholder: `${type.toUpperCase()} Name ...`,
+        inputValidator: value => {
+          return !value && "Name is Required!";
+        }
+      })
+      .then(result => {
+        if (result.value) {
+          let prf = {};
+          prf.clubid = this.state.club._id;
+          prf.name = result.value;
+          prf.type = type;
+
+          this.props.addClubFacility(prf);
         }
       });
   };
@@ -274,7 +322,7 @@ class Club extends Component {
                       <button
                         className="btn action-btn blue darken-4"
                         onClick={() => {
-                          this.onClickAddPRF("policy");
+                          this.onClickAddPolicy("policy");
                         }}
                       >
                         <i className="material-icons">add</i>
@@ -293,16 +341,17 @@ class Club extends Component {
                   <div className="card-content">
                     <span className="card-title blue-text darken-4">
                       Rentals/Services{" "}
-                      <button className="btn action-btn blue darken-4">
+                      <button
+                        className="btn action-btn blue darken-4"
+                        onClick={() => {
+                          this.onClickAddService("service");
+                        }}
+                      >
                         <i className="material-icons">add</i>
                       </button>
                     </span>
                     {services ? (
-                      <ul>
-                        {services.map((service, idx) => {
-                          return <li key={idx}>- {service.name}}</li>;
-                        })}
-                      </ul>
+                      <ClubServicesList services={services} />
                     ) : (
                       <p>No Service Record yet.</p>
                     )}
@@ -314,16 +363,17 @@ class Club extends Component {
                   <div className="card-content">
                     <span className="card-title blue-text darken-4">
                       Facilities{" "}
-                      <button className="btn action-btn blue darken-4">
+                      <button
+                        className="btn action-btn blue darken-4"
+                        onClick={() => {
+                          this.onClickAddFacility("facility");
+                        }}
+                      >
                         <i className="material-icons">add</i>
                       </button>
                     </span>
                     {facilities ? (
-                      <ul>
-                        {facilities.map((facility, idx) => {
-                          return <li key={idx}>- {facility.name}}</li>;
-                        })}
-                      </ul>
+                      <ClubFacilityList facilities={facilities} />
                     ) : (
                       <p>No Service Record yet.</p>
                     )}
@@ -424,7 +474,9 @@ Club.propTypes = {
   uploadClubFacilityFairwayImage: PropTypes.func.isRequired,
   deleteClubFacilityFairwayImage: PropTypes.func.isRequired,
   addClubAlbum: PropTypes.func.isRequired,
-  addClubPRF: PropTypes.func.isRequired
+  addClubPolicy: PropTypes.func.isRequired,
+  addClubService: PropTypes.func.isRequired,
+  addClubFacility: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -440,6 +492,8 @@ export default connect(
     uploadClubFacilityFairwayImage,
     deleteClubFacilityFairwayImage,
     addClubAlbum,
-    addClubPRF
+    addClubPolicy,
+    addClubService,
+    addClubFacility
   }
 )(Club);

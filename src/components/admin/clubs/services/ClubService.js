@@ -6,22 +6,22 @@ import { Input, Icon } from "react-materialize";
 import { isMobile } from "react-device-detect";
 
 import {
-  updateClubPolicy,
-  deleteClubPolicy
+  updateClubService,
+  deleteClubService
 } from "../../../../actions/clubActions";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-class ClubPolicy extends Component {
+class ClubService extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isEdit: false,
-      policy: this.props.policy,
+      service: this.props.service,
       mouseEnter: false,
       mouseLeave: true,
-      policyEditData: this.props.policy
+      serviceEditData: this.props.service
     };
 
     this.swAlert = withReactContent(Swal);
@@ -35,10 +35,10 @@ class ClubPolicy extends Component {
     this.setState({ mouseEnter: false, mouseLeave: true });
   };
 
-  handleEditPolicy = () => {
+  handleEditService = () => {
     this.setState({ isEdit: !this.state.isEdit });
     if (!this.state.isEdit) {
-      this.setState({ policyEditData: this.props.policy });
+      this.setState({ serviceEditData: this.props.service });
     }
   };
 
@@ -46,82 +46,63 @@ class ClubPolicy extends Component {
     if (e.target.name === "is_allowed") {
       console.log(e.target.value);
       this.setState({
-        policyEditData: {
-          ...this.state.policyEditData,
-          [e.target.name]: !this.state.policyEditData.is_allowed
+        serviceEditData: {
+          ...this.state.serviceEditData,
+          [e.target.name]: !this.state.serviceEditData.is_allowed
         }
       });
     } else {
       this.setState({
-        policyEditData: {
-          ...this.state.policyEditData,
+        serviceEditData: {
+          ...this.state.serviceEditData,
           [e.target.name]: e.target.value
         }
       });
     }
   };
 
-  handleSavePolicy = () => {
+  handleSaveService = () => {
     let prf = {};
-    prf._id = this.state.policyEditData._id;
-    prf.name = this.state.policyEditData.name;
-    prf.is_allowed = this.state.policyEditData.is_allowed;
+    prf._id = this.state.serviceEditData._id;
+    prf.name = this.state.serviceEditData.name;
     prf.clubid = this.props.club._id;
-    prf.type = "policy";
-    this.props.updateClubPolicy(prf);
+    prf.type = "service";
+    this.props.updateClubService(prf);
   };
 
-  handleDeletePolicy = type => {
-    const deletePolicy = {
+  handleDeleteService = type => {
+    const deleteService = {
       type: type,
       clubid: this.props.club._id,
-      policyid: this.props.policy._id
+      serviceid: this.props.service._id
     };
 
-    this.props.deleteClubPolicy(deletePolicy);
+    this.props.deleteClubService(deleteService);
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.policy !== this.props.policy) {
+    if (prevProps.service !== this.props.service) {
       this.setState({
         isEdit: false,
-        policy: this.props.policy,
+        service: this.props.service,
         mouseEnter: false,
         mouseLeave: true,
-        policyEditData: this.props.policy
+        serviceEditData: this.props.service
       });
     }
   }
 
   render() {
-    const { policy, isEdit, mouseEnter } = this.state;
-    const isEditPolicy = (
+    const { service, isEdit, mouseEnter } = this.state;
+    const isEditService = (
       <div className="row">
-        <div className="col s7">
-          <Input
-            placeholder="Name ..."
-            defaultValue={policy.name}
-            name="name"
-            onChange={this.handleOnChangeInput}
-          />
-        </div>
-        <div className="col s5">
-          <div className="switch">
-            <label>Is Allowed?</label>
-            <br />
-            <label>
-              No
-              <input
-                type="checkbox"
-                defaultChecked={policy.is_allowed}
-                name="is_allowed"
-                onChange={this.handleOnChangeInput}
-              />
-              <span className="lever" />
-              Yes
-            </label>
-          </div>
-        </div>
+        <Input
+          s={12}
+          placeholder="Name ..."
+          defaultValue={service.name}
+          name="name"
+          onChange={this.handleOnChangeInput}
+        />
       </div>
     );
 
@@ -130,19 +111,19 @@ class ClubPolicy extends Component {
         onMouseEnter={this.handleOnMouseEnter}
         onMouseLeave={this.handleOneMouseLeave}
       >
-        - {`${policy.name}: ${policy.is_allowed ? "YES" : "NO"}`}{" "}
+        - {service.name}{" "}
         {mouseEnter ? (
           <React.Fragment>
             <button
               className="btn blue darken-2 action-btn"
-              onClick={this.handleEditPolicy}
+              onClick={this.handleEditService}
             >
               {isEdit ? "CANCEL" : "EDIT"}
             </button>
             {isEdit ? (
               <button
                 className="btn blue darken-2 action-btn"
-                onClick={this.handleSavePolicy}
+                onClick={this.handleSaveService}
               >
                 Save
               </button>
@@ -150,7 +131,7 @@ class ClubPolicy extends Component {
               <button
                 className="btn red darken-2 action-btn"
                 onClick={() => {
-                  this.handleDeletePolicy("policy");
+                  this.handleDeleteService("service");
                 }}
               >
                 <Icon>delete</Icon>
@@ -160,23 +141,23 @@ class ClubPolicy extends Component {
         ) : (
           ""
         )}
-        {isEdit ? isEditPolicy : ""}
+        {isEdit ? isEditService : ""}
       </li>
     );
 
     const isMobileBrowser = (
       <li style={{ marginTop: "5px" }}>
-        - {`${policy.name}: ${policy.is_allowed ? "YES" : "NO"}`}{" "}
+        - {service.name}{" "}
         <button
           className="btn blue darken-2 action-btn"
-          onClick={this.handleEditPolicy}
+          onClick={this.handleEditService}
         >
           {isEdit ? "CANCEL" : "EDIT"}
         </button>
         {isEdit ? (
           <button
             className="btn blue darken-2 action-btn"
-            onClick={this.handleSavePolicy}
+            onClick={this.handleSaveService}
           >
             Save
           </button>
@@ -184,13 +165,13 @@ class ClubPolicy extends Component {
           <button
             className="btn red darken-2 action-btn"
             onClick={() => {
-              this.handleDeletePolicy("policy");
+              this.handleDeleteService("service");
             }}
           >
             <Icon>delete</Icon>
           </button>
         )}
-        {isEdit ? isEditPolicy : ""}
+        {isEdit ? isEditService : ""}
       </li>
     );
     return (
@@ -201,9 +182,9 @@ class ClubPolicy extends Component {
   }
 }
 
-ClubPolicy.propTypes = {
-  updateClubPolicy: PropTypes.func.isRequired,
-  deleteClubPolicy: PropTypes.func.isRequired
+ClubService.propTypes = {
+  updateClubService: PropTypes.func.isRequired,
+  deleteClubService: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -213,7 +194,7 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    updateClubPolicy,
-    deleteClubPolicy
+    updateClubService,
+    deleteClubService
   }
-)(ClubPolicy);
+)(ClubService);
