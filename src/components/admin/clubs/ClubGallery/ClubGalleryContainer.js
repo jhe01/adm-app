@@ -10,7 +10,10 @@ import withReactContent from "sweetalert2-react-content";
 import Header from "../../../template/Header";
 import Sidenav from "../../../template/Aside";
 
-import { getClubAlbum } from "../../../../actions/clubActions";
+import {
+  getClubAlbum,
+  uploadClubAlbumImage
+} from "../../../../actions/clubActions";
 
 import ClubGalleryImage from "./ClubGalleryImage";
 
@@ -18,7 +21,8 @@ class ClubGalleryContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      album: {}
+      album: {},
+      filesToUpload: []
     };
 
     this.swAlert = withReactContent(Swal);
@@ -27,10 +31,41 @@ class ClubGalleryContainer extends Component {
     this.props.getClubAlbum(this.props.match.params.albumid);
   }
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.album !== prevProps.album) {
-      this.setState({ album: this.props.album });
+    if (prevProps.album !== this.props.album) {
+      this.setState({
+        ...this.state.album,
+        album: this.props.album
+      });
     }
   }
+  onFileInputChange = e => {
+    this.setState({ filesToUpload: e.target.files });
+  };
+  onClickAddAlbumImage = () => {
+    this.swAlert
+      .fire({
+        title: "Select Image",
+        html: (
+          <input
+            type="file"
+            className="swal2-file"
+            accept="image/*"
+            onChange={this.onFileInputChange}
+            multiple
+          />
+        )
+      })
+      .then(result => {
+        if (result.value) {
+          const upload = {};
+          if (this.state.filesToUpload) {
+            upload.id = this.state.album._id;
+            upload.files = this.state.filesToUpload;
+            this.props.uploadClubAlbumImage(upload);
+          }
+        }
+      });
+  };
   render() {
     const { album } = this.state;
     return (
@@ -45,15 +80,24 @@ class ClubGalleryContainer extends Component {
             >
               Back
             </Link>
+            <button
+              className="btn btn-small blue darken-2 waves-effect action-btn"
+              style={{ marginLeft: "5px" }}
+              onClick={this.onClickAddAlbumImage}
+            >
+              <i className="material-icons">file_upload</i>
+            </button>
             <div className="card">
               <div className="card-content">
                 <span className="card-title">{album.name}</span>
                 <div className="row">
-                  {album.images
-                    ? album.images.map(image => (
-                        <ClubGalleryImage image={image} />
-                      ))
-                    : ""}
+                  <div className="col s12 cards-container">
+                    {album.images
+                      ? album.images.map(image => (
+                          <ClubGalleryImage image={image} albumId={album._id} />
+                        ))
+                      : ""}
+                  </div>
                 </div>
               </div>
             </div>
@@ -65,7 +109,8 @@ class ClubGalleryContainer extends Component {
 }
 
 ClubGalleryContainer.propTypes = {
-  getClubAlbum: PropTypes.func.isRequired
+  getClubAlbum: PropTypes.func.isRequired,
+  uploadClubAlbumImage: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -75,5 +120,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getClubAlbum }
+  { getClubAlbum, uploadClubAlbumImage }
 )(ClubGalleryContainer);

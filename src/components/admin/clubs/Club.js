@@ -30,6 +30,9 @@ import ClubServicesList from "./services/ClubServicesList";
 import ClubFacilityList from "./facility/ClubFacilityList";
 import ClubGallery from "./ClubGallery";
 import ClubImage from "../util/ClubImage";
+import EditDescription from "./club/EditDescription";
+import EditAddress from "./club/EditAddress";
+import EditCourse from "./club/EditCourse";
 
 import {
   Button,
@@ -46,7 +49,14 @@ class Club extends Component {
     this.state = {
       club: {},
       filesToUpload: [],
-      PRFName: ""
+      PRFName: "",
+      isEditDescription: false,
+      isEditName: false,
+      isEditAddress: false,
+      isEditMaintenanceDay: false,
+      isEditCourse: false,
+      isEditContact: false,
+      isEditSocialMedia: false
     };
 
     this.swAlert = withReactContent(Swal);
@@ -231,6 +241,17 @@ class Club extends Component {
       });
   };
 
+  onClickEditDescription = () => {
+    this.setState({ isEditDescription: !this.state.isEditDescription });
+  };
+
+  onClickEditAddress = () => {
+    this.setState({ isEditAddress: !this.state.isEditAddress });
+  };
+  onClickEditCourse = () => {
+    this.setState({ isEditCourse: !this.state.isEditCourse });
+  };
+
   render() {
     const {
       name,
@@ -241,14 +262,26 @@ class Club extends Component {
       facilities,
       services,
       policies,
-      logo
+      logo,
+      description,
+      address
     } = this.state.club;
+    const { isEditDescription, isEditAddress, isEditCourse, club } = this.state;
+    const createMarkUp = () => {
+      return { __html: description !== "" ? description : "No Details." };
+    };
     return (
       <React.Fragment>
         <Header branding={`Club`} />
         <Sidenav active="club-list" />
-        <Row className="club-container">
+        <Row className="club-container" style={{ marginTop: "10px" }}>
           <Col s={12} m={3}>
+            <Link
+              to={`/clubs`}
+              className="btn btn-small grey lighten-5 black-text waves-effect"
+            >
+              Back
+            </Link>
             <div className="card">
               <div className="card-image">
                 {logo ? <ClubImage img={logo} /> : ""}
@@ -263,70 +296,113 @@ class Club extends Component {
                 </button>
               </div>
               <div className="card-content">
-                <span className="card-title">{name}</span>
+                <span className="card-title">
+                  {name}{" "}
+                  <button className="btn-floating btn-small action-btn-floating waves-effect blue darken-2">
+                    <i className="material-icons">edit</i>
+                  </button>
+                </span>
               </div>
             </div>
             <Collection header="Other Info">
               <CollectionItem>
                 <strong>Course:</strong>{" "}
-                {courses
-                  ? courses.map((course, idx) => {
-                      return <p key={idx}>{course.name}</p>;
-                    })
-                  : ""}
+                <button
+                  className="btn-floating btn-small action-btn-floating waves-effect blue darken-4"
+                  onClick={this.onClickEditCourse}
+                >
+                  <i className="material-icons">add</i>
+                </button>
+                {courses ? <EditCourse courses={courses} club={club} /> : ""}
               </CollectionItem>
               <CollectionItem>
                 <strong>Address:</strong>{" "}
-                <p>Sample Address na mahaba, Maiksi City</p>
+                {isEditAddress ? (
+                  <button
+                    className="btn-floating btn-small action-btn-floating waves-effect red darken-2"
+                    onClick={this.onClickEditAddress}
+                  >
+                    <i className="material-icons">close</i>
+                  </button>
+                ) : (
+                  <button
+                    className="btn-floating btn-small action-btn-floating waves-effect blue darken-2"
+                    onClick={this.onClickEditAddress}
+                  >
+                    <i className="material-icons">edit</i>
+                  </button>
+                )}
+                {isEditAddress ? (
+                  <EditAddress
+                    club={this.state.club}
+                    afterSave={this.onClickEditAddress}
+                  />
+                ) : (
+                  <p>{address}</p>
+                )}
               </CollectionItem>
               <CollectionItem>
-                <strong>Maintenance Day:</strong> <p>Monday</p>
+                <strong>Maintenance Day:</strong>{" "}
+                <button className="btn-floating btn-small action-btn-floating waves-effect blue darken-2">
+                  <i className="material-icons">edit</i>
+                </button>
+                <p>Monday</p>
+              </CollectionItem>
+              <CollectionItem>
+                <strong>Contacts:</strong>
+              </CollectionItem>
+              <CollectionItem>
+                <strong>Social Media:</strong>
               </CollectionItem>
             </Collection>
           </Col>
           <Col s={12} m={9}>
             <h5 className="blue-text darken-4">About</h5>
             <div className="card">
+              <div className="card-image">
+                {isEditDescription ? (
+                  <button
+                    className="btn-floating halfway-fab waves-effect waves-light red darken-2"
+                    onClick={this.onClickEditDescription}
+                  >
+                    <i className="material-icons">close</i>
+                  </button>
+                ) : (
+                  <button
+                    className="btn-floating halfway-fab waves-effect waves-light blue darken-2"
+                    onClick={this.onClickEditDescription}
+                  >
+                    <i className="material-icons">edit</i>
+                  </button>
+                )}
+              </div>
               <div className="card-content">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Assumenda modi vero voluptates eveniet corporis fugit quas.
-                  Minus dolore possimus soluta laborum magnam sequi. Commodi
-                  iure repellat dicta earum vel voluptatum, modi illo temporibus
-                  repellendus, rerum fugit amet ea quod ratione suscipit ipsum!
-                  Aliquam aut suscipit id commodi vitae ipsam itaque! Lorem
-                  ipsum dolor sit amet consectetur, adipisicing elit. Laborum
-                  accusamus repellat obcaecati iure fugiat nulla sed corporis
-                  quae dolor voluptatum. Lorem ipsum dolor sit amet consectetur,
-                  adipisicing elit. Nihil quo rerum nesciunt aliquid facilis,
-                  debitis aperiam sint quas qui exercitationem voluptates
-                  pariatur, reprehenderit magnam porro maiores in quod
-                  veritatis, provident beatae ex cumque suscipit. Numquam unde
-                  veniam saepe, facere perferendis maxime. Ullam dolor, cumque
-                  consequuntur temporibus fugit corporis perspiciatis atque
-                  optio omnis dolores odit dolorum quos, ipsum aperiam, qui non?
-                  Doloribus, totam recusandae. Fuga alias quidem deserunt
-                  ratione eos perferendis architecto quos a dicta impedit omnis
-                  dignissimos quam aut rerum quae reiciendis ipsum aperiam eius
-                  ullam, molestias hic maiores minus officiis. At magni nobis
-                  cupiditate suscipit velit ea cum accusantium?
-                </p>
+                {isEditDescription ? (
+                  <EditDescription
+                    club={this.state.club}
+                    afterSave={this.onClickEditDescription}
+                  />
+                ) : (
+                  <div dangerouslySetInnerHTML={createMarkUp()} />
+                )}
               </div>
             </div>
             <div className="row">
               <div className="col s12 m4">
                 <div className="card">
+                  <div className="card-image">
+                    <button
+                      className="btn-floating halfway-fab waves-effect blue darken-4"
+                      onClick={() => {
+                        this.onClickAddPolicy("policy");
+                      }}
+                    >
+                      <i className="material-icons">add</i>
+                    </button>
+                  </div>
                   <div className="card-content">
                     <span className="card-title blue-text darken-4">
                       Policies{" "}
-                      <button
-                        className="btn action-btn blue darken-4"
-                        onClick={() => {
-                          this.onClickAddPolicy("policy");
-                        }}
-                      >
-                        <i className="material-icons">add</i>
-                      </button>
                     </span>
                     {policies ? (
                       <ClubPolicyList policies={policies} />
@@ -338,17 +414,19 @@ class Club extends Component {
               </div>
               <div className="col s12 m4">
                 <div className="card">
+                  <div className="card-image">
+                    <button
+                      className="btn-floating halfway-fab waves-effect blue darken-4"
+                      onClick={() => {
+                        this.onClickAddService("service");
+                      }}
+                    >
+                      <i className="material-icons">add</i>
+                    </button>
+                  </div>
                   <div className="card-content">
                     <span className="card-title blue-text darken-4">
-                      Rentals/Services{" "}
-                      <button
-                        className="btn action-btn blue darken-4"
-                        onClick={() => {
-                          this.onClickAddService("service");
-                        }}
-                      >
-                        <i className="material-icons">add</i>
-                      </button>
+                      Rentals/Services
                     </span>
                     {services ? (
                       <ClubServicesList services={services} />
@@ -360,17 +438,19 @@ class Club extends Component {
               </div>
               <div className="col s12 m4">
                 <div className="card">
+                  <div className="card-image">
+                    <button
+                      className="btn-floating halfway-fab waves-effect blue darken-4"
+                      onClick={() => {
+                        this.onClickAddFacility("facility");
+                      }}
+                    >
+                      <i className="material-icons">add</i>
+                    </button>
+                  </div>
                   <div className="card-content">
                     <span className="card-title blue-text darken-4">
-                      Facilities{" "}
-                      <button
-                        className="btn action-btn blue darken-4"
-                        onClick={() => {
-                          this.onClickAddFacility("facility");
-                        }}
-                      >
-                        <i className="material-icons">add</i>
-                      </button>
+                      Facilities
                     </span>
                     {facilities ? (
                       <ClubFacilityList facilities={facilities} />
@@ -383,15 +463,17 @@ class Club extends Component {
             </div>
             <h5 className="blue-text darken-4">Gallery</h5>
             <div className="card">
+              <div className="card-image">
+                <button
+                  className="btn-floating halfway-fab waves-effect blue darken-4"
+                  onClick={this.onClickAddAlbum}
+                >
+                  <i className="material-icons">add</i>
+                </button>
+              </div>
               <div className="card-content">
                 <span className="card-title blue-text darken-4">
-                  Recent Events{" "}
-                  <button
-                    className="btn action-btn blue darken-4"
-                    onClick={this.onClickAddAlbum}
-                  >
-                    <i className="material-icons">add</i>
-                  </button>
+                  Recent Events
                 </span>
 
                 {recent_event_albums ? (
@@ -401,19 +483,19 @@ class Club extends Component {
                 )}
               </div>
             </div>
-            <div className="card">
+            <div className="card" style={{ marginTop: "30px" }}>
+              <div className="card-image">
+                <button
+                  className="btn-floating halfway-fab waves-effect blue darken-4"
+                  onClick={() => {
+                    this.onClickUploadFacilityFairwayImages("facility");
+                  }}
+                >
+                  <i className="material-icons">add</i>
+                </button>
+              </div>
               <div className="card-content">
-                <span className="card-title blue-text darken-4">
-                  Facility{" "}
-                  <button
-                    className="btn action-btn blue darken-4"
-                    onClick={() => {
-                      this.onClickUploadFacilityFairwayImages("facility");
-                    }}
-                  >
-                    <i className="material-icons">add</i>
-                  </button>
-                </span>
+                <span className="card-title blue-text darken-4">Facility</span>
 
                 <div className="row">
                   <div className="col s12 cards-container">
@@ -431,19 +513,19 @@ class Club extends Component {
                 </div>
               </div>
             </div>
-            <div className="card">
+            <div className="card" style={{ marginTop: "30px" }}>
+              <div className="card-image">
+                <button
+                  className="btn-floating halfway-fab waves-effect blue darken-4"
+                  onClick={() => {
+                    this.onClickUploadFacilityFairwayImages("fairway");
+                  }}
+                >
+                  <i className="material-icons">add</i>
+                </button>
+              </div>
               <div className="card-content">
-                <span className="card-title blue-text darken-4">
-                  Fairways{" "}
-                  <button
-                    className="btn action-btn blue darken-4"
-                    onClick={() => {
-                      this.onClickUploadFacilityFairwayImages("fairway");
-                    }}
-                  >
-                    <i className="material-icons">add</i>
-                  </button>
-                </span>
+                <span className="card-title blue-text darken-4">Fairways</span>
                 <div className="row">
                   <div className="col s12 cards-container">
                     {fairway_images ? (

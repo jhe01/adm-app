@@ -21,7 +21,7 @@ export default function ClubGallery(props) {
                   )}
 
                   <Link
-                    className="btn-floating halfway-fab waves-effect grey lighten-4"
+                    className="btn-floating halfway-fab waves-effect grey lighten-4 action-btn-floating"
                     to={`/club/${album.club_id}/album/${album._id}`}
                   >
                     <i className="material-icons black-text">more_horiz</i>

@@ -22,7 +22,9 @@ import {
   ADD_CLUB_FACILITY,
   UPDATE_CLUB_FACILITY,
   DELETE_CLUB_FACILITY,
-  GET_CLUB_ALBUM
+  GET_CLUB_ALBUM,
+  UPLOAD_IMAGE_CLUB_ALBUM,
+  DELETE_IMAGE_CLUB_ALBUM
 } from "./types";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -100,6 +102,14 @@ export const updateGolfClub = club => async dispatch => {
     type: UPDATE_GOLF_CLUB,
     payload: res.data
   });
+  if (res.data) {
+    swAlert.fire({
+      title: "Success",
+      type: "success",
+      showConfirmButton: false,
+      timer: 1300
+    });
+  }
 };
 
 export const getRecentEventAlbum = clubid => async dispatch => {
@@ -440,4 +450,54 @@ export const getClubAlbum = id => async dispatch => {
     type: GET_CLUB_ALBUM,
     payload: res.data
   });
+};
+
+export const uploadClubAlbumImage = upload => async dispatch => {
+  const formData = new FormData();
+  for (let i = 0; i < upload.files.length; i++) {
+    formData.append("files", upload.files[i]);
+  }
+  const config = {
+    headers: {
+      "content-type": "multipart/form-data"
+    }
+  };
+
+  await axios
+    .post(`/api/club/upload/album/${upload.id}`, formData, config)
+    .then(res => {
+      dispatch({
+        type: UPLOAD_IMAGE_CLUB_ALBUM,
+        payload: res.data
+      });
+      if (res.data) {
+        swAlert.fire({
+          title: "Success",
+          type: "success",
+          showConfirmButton: false,
+          timer: 1300
+        });
+      }
+    })
+    .catch(err => {
+      dispatch({ type: GET_ERRORS, payload: err.response.err });
+    });
+};
+
+export const deeteClubAlbumImage = (img, albumId) => async dispatch => {
+  const res = await axios.delete(`/api/upload/album/${albumId}/${img.upid}`);
+
+  dispatch({
+    type: DELETE_IMAGE_CLUB_ALBUM,
+    payload: res.data
+  });
+
+  if (res.data) {
+    swAlert.fire({
+      title: "Success",
+      type: "success",
+      showConfirmButton: false,
+      timer: 1300
+    });
+  }
 };

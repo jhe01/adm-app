@@ -174,3 +174,42 @@ textarea {
 .collection .collection-header h4 {
   font-size: 1.28rem;
 }
+
+.action-btn-floating {
+  width: 30px !important;
+  height: 30px !important;
+  line-height: 30px !important;
+}
+
+.action-btn-floating i {
+  line-height: 30px !important ;
+  font-size: 1.4rem;
+}
+
+.input-field .action-btn-prefix {
+  width: 2.4rem !important;
+}
+
+.input-field .btn {
+  padding: 0 0.4rem !important;
+}
+
+button.secondary-content {
+  padding: 0 0.6rem;
+}
+
+.course-collection {
+  border: none;
+}
+
+.course-collection .collection-item {
+  padding-left: 10px !important;
+}
+
+.course-collection .collection-item > div {
+  padding: 10px;
+}
+
+.course-collection .collection-item > div > button {
+  margin-top: -10px;
+}

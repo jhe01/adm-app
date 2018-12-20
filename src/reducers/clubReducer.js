@@ -22,6 +22,8 @@ import {
   UPDATE_CLUB_FACILITY,
   DELETE_CLUB_FACILITY,
   GET_CLUB_ALBUM,
+  UPLOAD_IMAGE_CLUB_ALBUM,
+  DELETE_IMAGE_CLUB_ALBUM,
   GET_ERRORS
 } from "../actions/types";
 import { stat } from "fs";
@@ -248,6 +250,12 @@ export default function(state = initialState, action) {
         }
       };
     case GET_CLUB_ALBUM:
+      return {
+        ...state,
+        album: action.payload
+      };
+    case DELETE_IMAGE_CLUB_ALBUM:
+    case UPLOAD_IMAGE_CLUB_ALBUM:
       return {
         ...state,
         album: action.payload

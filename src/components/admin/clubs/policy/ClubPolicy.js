@@ -133,28 +133,38 @@ class ClubPolicy extends Component {
         - {`${policy.name}: ${policy.is_allowed ? "YES" : "NO"}`}{" "}
         {mouseEnter ? (
           <React.Fragment>
-            <button
-              className="btn blue darken-2 action-btn"
-              onClick={this.handleEditPolicy}
-            >
-              {isEdit ? "CANCEL" : "EDIT"}
-            </button>
             {isEdit ? (
-              <button
-                className="btn blue darken-2 action-btn"
-                onClick={this.handleSavePolicy}
-              >
-                Save
-              </button>
+              <React.Fragment>
+                <button
+                  className="btn red darken-2 action-btn"
+                  onClick={this.handleEditPolicy}
+                >
+                  <i className="material-icons">close</i>
+                </button>
+                <button
+                  className="btn blue darken-2 action-btn"
+                  onClick={this.handleSavePolicy}
+                >
+                  Save
+                </button>
+              </React.Fragment>
             ) : (
-              <button
-                className="btn red darken-2 action-btn"
-                onClick={() => {
-                  this.handleDeletePolicy("policy");
-                }}
-              >
-                <Icon>delete</Icon>
-              </button>
+              <React.Fragment>
+                <button
+                  className="btn blue darken-2 action-btn"
+                  onClick={this.handleEditPolicy}
+                >
+                  Edit
+                </button>
+                <button
+                  className="btn red darken-2 action-btn"
+                  onClick={() => {
+                    this.handleDeletePolicy("policy");
+                  }}
+                >
+                  <Icon>delete</Icon>
+                </button>
+              </React.Fragment>
             )}
           </React.Fragment>
         ) : (
@@ -171,7 +181,7 @@ class ClubPolicy extends Component {
           className="btn blue darken-2 action-btn"
           onClick={this.handleEditPolicy}
         >
-          {isEdit ? "CANCEL" : "EDIT"}
+          {isEdit ? <i className="material-icons">close</i> : "EDIT"}
         </button>
         {isEdit ? (
           <button

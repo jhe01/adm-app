@@ -15,7 +15,7 @@ export default function ClubFairwaysImages(props) {
                     className="responsive-img"
                   />
                   <button
-                    className="btn-floating halfway-fab waves-effect waves-light red darken-2"
+                    className="btn-floating halfway-fab waves-effect waves-light red darken-2 action-btn-floating"
                     onClick={() => {
                       props.onClickDeleteImage(fairway, "fairway");
                     }}

@@ -21,7 +21,7 @@ import ClubsList from "./components/admin/clubs/ClubsList";
 import AddClub from "./components/admin/clubs/AddClub";
 import EditClub from "./components/admin/clubs/EditClub";
 import Club from "./components/admin/clubs/Club";
-import ClubGalleryContainer from "./components/admin/clubs/ClubGallery/ClubGalleryContainer";
+import ClubGalleryContainer from "./components/admin/clubs/clubGallery/ClubGalleryContainer";
 // User
 import UsersList from "./components/admin/users/UsersList";
 import AddUser from "./components/admin/users/AddUser";
