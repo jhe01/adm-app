@@ -198,18 +198,18 @@ button.secondary-content {
   padding: 0 0.6rem;
 }
 
-.course-collection {
+.mc-collection {
   border: none;
 }
 
-.course-collection .collection-item {
+.mc-collection .collection-item {
   padding-left: 10px !important;
 }
 
-.course-collection .collection-item > div {
+.mc-collection .collection-item > div {
   padding: 10px;
 }
 
-.course-collection .collection-item > div > button {
+.mc-collection .collection-item > div > button {
   margin-top: -10px;
 }

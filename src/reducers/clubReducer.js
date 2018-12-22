@@ -24,6 +24,12 @@ import {
   GET_CLUB_ALBUM,
   UPLOAD_IMAGE_CLUB_ALBUM,
   DELETE_IMAGE_CLUB_ALBUM,
+  ADD_CLUB_CONTACT,
+  UPDATE_CLUB_CONTACT,
+  DELETE_CLUB_CONTACT,
+  ADD_CLUB_SOCIAL_MEDIA,
+  UPDATE_CLUB_SOCIAL_MEDIA,
+  DELETE_CLUB_SOCIAL_MEDIA,
   GET_ERRORS
 } from "../actions/types";
 import { stat } from "fs";
@@ -259,6 +265,46 @@ export default function(state = initialState, action) {
       return {
         ...state,
         album: action.payload
+      };
+    case DELETE_CLUB_CONTACT:
+    case ADD_CLUB_CONTACT:
+      return {
+        ...state,
+        clubs: state.clubs.map(club => {
+          if (club._id === action.payload.clubid) {
+            delete action.payload.clubid;
+            club.contact = action.payload;
+          }
+          return club;
+        }),
+        club: {
+          ...state.club,
+          contact: action.payload
+        }
+      };
+    case UPDATE_CLUB_CONTACT:
+      return {
+        ...state,
+        clubs: state.clubs.map(club => {
+          if (club._id === action.payload.clubid) {
+            delete action.payload.clubid;
+            const c = club.contact.map(contact => {
+              return contact._id === action.payload._id
+                ? (contact = action.payload)
+                : contact;
+            });
+            club.contact = c;
+          }
+          return club;
+        }),
+        club: {
+          ...state.club,
+          contact: state.club.contact.map(contact =>
+            contact._id === action.payload[0]._id
+              ? (contact = action.payload[0])
+              : contact
+          )
+        }
       };
     default:
       return state;

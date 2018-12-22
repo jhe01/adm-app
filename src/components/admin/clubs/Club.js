@@ -12,7 +12,10 @@ import {
   addClubAlbum,
   addClubPolicy,
   addClubService,
-  addClubFacility
+  addClubFacility,
+  deleteClubCourse,
+  updateClubCourse,
+  addClubCourse
 } from "../../../actions/clubActions";
 
 import Swal from "sweetalert2";
@@ -33,6 +36,9 @@ import ClubImage from "../util/ClubImage";
 import EditDescription from "./club/EditDescription";
 import EditAddress from "./club/EditAddress";
 import EditCourse from "./club/EditCourse";
+import EditClubName from "./club/EditClubName";
+import EditMaintenanceDay from "./club/EditMaintenanceDay";
+import ClubContactList from "./ClubContactList";
 
 import {
   Button,
@@ -55,8 +61,9 @@ class Club extends Component {
       isEditAddress: false,
       isEditMaintenanceDay: false,
       isEditCourse: false,
-      isEditContact: false,
-      isEditSocialMedia: false
+      isAddEditContact: false,
+      isAddEditSocialMedia: false,
+      isAddContact: false
     };
 
     this.swAlert = withReactContent(Swal);
@@ -241,6 +248,10 @@ class Club extends Component {
       });
   };
 
+  onEditClubName = () => {
+    this.setState({ isEditName: !this.state.isEditName });
+  };
+
   onClickEditDescription = () => {
     this.setState({ isEditDescription: !this.state.isEditDescription });
   };
@@ -250,6 +261,49 @@ class Club extends Component {
   };
   onClickEditCourse = () => {
     this.setState({ isEditCourse: !this.state.isEditCourse });
+  };
+
+  onClickEditMaintentnceDay = () => {
+    this.setState({ isEditMaintenanceDay: !this.state.isEditMaintenanceDay });
+  };
+
+  onClickAddContact = () => {
+    this.setState({ isAddContact: !this.state.isAddContact });
+  };
+
+  onClickEditContact = () => {
+    this.setState({ isAddEditContact: !this.state.isAddEditContact });
+  };
+
+  onClickAddCourse = () => {
+    this.swAlert
+      .fire({
+        title: <span style={{ fontSize: "1.3rem" }}>Enter Course Name</span>,
+        input: "text",
+        showCancelButton: true,
+        confirmButtonText: "Save",
+        showLoaderOnConfirm: true,
+        inputValidator: value => {
+          return !value && "Invalid Course Name";
+        },
+        preConfirm: val => {
+          const course = {};
+          course.name = val;
+          course.clubid = this.state.club._id;
+          this.props.addClubCourse(course);
+        },
+        allowOutsideClick: () => !this.swAlert.isLoading()
+      })
+      .then(result => {
+        if (result.value) {
+          this.swAlert.fire({
+            title: "Success",
+            type: "success",
+            showConfirmButton: false,
+            timer: 1300
+          });
+        }
+      });
   };
 
   render() {
@@ -264,9 +318,20 @@ class Club extends Component {
       policies,
       logo,
       description,
-      address
+      address,
+      maintenance_day,
+      contact
     } = this.state.club;
-    const { isEditDescription, isEditAddress, isEditCourse, club } = this.state;
+    const {
+      isEditDescription,
+      isEditAddress,
+      isEditCourse,
+      isEditMaintenanceDay,
+      isAddEditContact,
+      isAddContact,
+      club,
+      isEditName
+    } = this.state;
     const createMarkUp = () => {
       return { __html: description !== "" ? description : "No Details." };
     };
@@ -296,12 +361,29 @@ class Club extends Component {
                 </button>
               </div>
               <div className="card-content">
-                <span className="card-title">
-                  {name}{" "}
-                  <button className="btn-floating btn-small action-btn-floating waves-effect blue darken-2">
+                {/* <span className="card-title"> */}
+                <strong>Club Name:</strong>{" "}
+                {isEditName ? (
+                  <button
+                    className="btn-floating btn-small action-btn-floating waves-effect red darken-2"
+                    onClick={this.onEditClubName}
+                  >
+                    <i className="material-icons">close</i>
+                  </button>
+                ) : (
+                  <button
+                    className="btn-floating btn-small action-btn-floating waves-effect blue darken-2"
+                    onClick={this.onEditClubName}
+                  >
                     <i className="material-icons">edit</i>
                   </button>
-                </span>
+                )}
+                {isEditName ? (
+                  <EditClubName club={club} afterSave={this.onEditClubName} />
+                ) : (
+                  <span className="card-title">{name} </span>
+                )}{" "}
+                {/* </span> */}
               </div>
             </div>
             <Collection header="Other Info">
@@ -309,7 +391,7 @@ class Club extends Component {
                 <strong>Course:</strong>{" "}
                 <button
                   className="btn-floating btn-small action-btn-floating waves-effect blue darken-4"
-                  onClick={this.onClickEditCourse}
+                  onClick={this.onClickAddCourse}
                 >
                   <i className="material-icons">add</i>
                 </button>
@@ -343,13 +425,35 @@ class Club extends Component {
               </CollectionItem>
               <CollectionItem>
                 <strong>Maintenance Day:</strong>{" "}
-                <button className="btn-floating btn-small action-btn-floating waves-effect blue darken-2">
+                <button
+                  className="btn-floating btn-small action-btn-floating waves-effect blue darken-2"
+                  onClick={this.onClickEditMaintentnceDay}
+                >
                   <i className="material-icons">edit</i>
                 </button>
-                <p>Monday</p>
+                {isEditMaintenanceDay ? (
+                  <EditMaintenanceDay
+                    club={club}
+                    afterSave={this.onClickEditMaintentnceDay}
+                  />
+                ) : (
+                  <p>{maintenance_day}</p>
+                )}
               </CollectionItem>
               <CollectionItem>
-                <strong>Contacts:</strong>
+                <strong>Contacts:</strong>{" "}
+                <button
+                  className="btn-floating btn-small action-btn-floating waves-effect blue darken-4"
+                  onClick={this.onClickAddContact}
+                >
+                  <i className="material-icons">add</i>
+                </button>
+                {/* {isAddEditContact ? <EditContact /> : ""} */}
+                <ClubContactList
+                  contacts={contact}
+                  club={club}
+                  isAddContact={isAddContact}
+                />
               </CollectionItem>
               <CollectionItem>
                 <strong>Social Media:</strong>
@@ -576,6 +680,9 @@ export default connect(
     addClubAlbum,
     addClubPolicy,
     addClubService,
-    addClubFacility
+    addClubFacility,
+    addClubCourse,
+    deleteClubCourse,
+    updateClubCourse
   }
 )(Club);
