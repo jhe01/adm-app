@@ -18,6 +18,7 @@ import withReactContent from "sweetalert2-react-content";
 import Header from "../../template/Header";
 import Sidenav from "../../template/Aside";
 import EventImage from "../util/EventImage";
+import ImageButton from "../util/ImageButton";
 
 class Event extends Component {
   constructor(props) {
@@ -143,7 +144,6 @@ class Event extends Component {
       to,
       eventType,
       eventCategory,
-      numberOfPlayers,
       banner,
       details,
       oneDayOnly,
@@ -158,20 +158,18 @@ class Event extends Component {
       return { __html: details !== "" ? details : "No Details." };
     };
     const displayDeleteImgBtn = (
-      <button
-        className="btn-floating halfway-fab waves-effect waves-light red"
-        onClick={this.onClickDeleteImage}
-      >
-        <i className="material-icons">delete</i>
-      </button>
+      <ImageButton
+        color="red"
+        onClickImageButton={this.onClickDeleteImage}
+        icon="delete"
+      />
     );
     const displayUploadBtn = (
-      <button
-        className="btn-floating halfway-fab waves-effect waves-light red"
-        onClick={this.onClickUploadImage}
-      >
-        <i className="material-icons">photo_camera</i>
-      </button>
+      <ImageButton
+        color="blue darken-2"
+        onClickImageButton={this.onClickUploadImage}
+        icon="photo_camera"
+      />
     );
     const displayEnableBtn = (
       <Button
@@ -236,6 +234,13 @@ class Event extends Component {
                             )}
                       </strong>
                     </p>
+                    {oneDayOnly && !isWholeDay ? (
+                      <p>
+                        Time: <strong>{timeFrom + " to " + timeTo}</strong>
+                      </p>
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <div className="card-action">
                     <a href="#!" className="blue-text text-darken-2 disabled">

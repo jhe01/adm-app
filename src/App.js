@@ -20,6 +20,8 @@ import User from "./components/User";
 import ClubsList from "./components/admin/clubs/ClubsList";
 import AddClub from "./components/admin/clubs/AddClub";
 import EditClub from "./components/admin/clubs/EditClub";
+import Club from "./components/admin/clubs/Club";
+import ClubGalleryContainer from "./components/admin/clubs/clubGallery/ClubGalleryContainer";
 // User
 import UsersList from "./components/admin/users/UsersList";
 import AddUser from "./components/admin/users/AddUser";
@@ -30,6 +32,7 @@ import Login from "./components/auth/Login";
 
 import "fullcalendar-reactwrapper/dist/css/fullcalendar.min.css";
 import "./App.css";
+import "./assets/main.css";
 import setAuthToken from "./util/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/userActions";
 
@@ -88,6 +91,13 @@ class App extends Component {
                   exact
                   path="/edit-club/:id"
                   component={EditClub}
+                />
+                <PrivateRoute exact path="/club/:id" component={Club} />
+
+                <PrivateRoute
+                  exact
+                  path="/club/:id/album/:albumid"
+                  component={ClubGalleryContainer}
                 />
                 {/* @route - Users */}
                 <PrivateRoute exact path="/users" component={UsersList} />

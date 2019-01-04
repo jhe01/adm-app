@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import PropTypes from "prop-types";
+import { isMobile } from "react-device-detect";
 
 import { logoutUser } from "../../actions/userActions";
 
@@ -63,8 +64,15 @@ class Aside extends Component {
         options={{ closeOnClick: true }}
         fixed={true}
       >
-        <SideNavItem href="#!icon" className="sidenav-header">
-          <h4 className="center-align">
+        <SideNavItem className="sidenav-header">
+          {isMobile ? (
+            <button className="btn-floating btn-flat btn-small waves-effect waves-light blue darken-4 right">
+              <i className="material-icons">close</i>
+            </button>
+          ) : (
+            ""
+          )}
+          <h4 className="left">
             Fil
             <span>Golf</span>
           </h4>

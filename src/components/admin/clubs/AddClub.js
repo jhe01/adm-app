@@ -13,7 +13,7 @@ class AddClub extends Component {
     description: "",
     errors: {}
   };
-  componentDidMount() {}
+
   onSubmit = e => {
     e.preventDefault();
     const { name, description } = this.state;
@@ -44,37 +44,33 @@ class AddClub extends Component {
         <Sidenav active="add-club" />
         <form onSubmit={this.onSubmit}>
           <Row>
-            <Col s={6}>
-              <Row>
-                <Input
-                  s={12}
-                  m={12}
-                  label="Name"
-                  type="text"
-                  name="name"
-                  id="name"
-                  onChange={this.onChange}
-                />
-              </Row>
-            </Col>
+            <Input
+              s={12}
+              m={6}
+              label="Name"
+              type="text"
+              name="name"
+              id="name"
+              onChange={this.onChange}
+            />
           </Row>
           <Row>
-            <Col s={6}>
-              <Row>
-                <Input
-                  s={12}
-                  m={12}
-                  label="Description"
-                  type="textarea"
-                  name="description"
-                  id="description"
-                  onChange={this.onChange}
-                />
-              </Row>
-            </Col>
+            <Input
+              s={12}
+              m={6}
+              label="Description"
+              type="textarea"
+              name="description"
+              id="description"
+              onChange={this.onChange}
+            />
           </Row>
           <Row>
-            <Input type="submit" className="btn right-align" />
+            <Col s={12} m={6}>
+              <button type="submit" className="btn blue darken-4">
+                SAVE
+              </button>
+            </Col>
           </Row>
         </form>
       </React.Fragment>

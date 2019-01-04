@@ -160,7 +160,11 @@ class AddEvent extends Component {
           <Row>
             <Col s={12} m={6}>
               <Row>
-                <input type="submit" value="Save" className="btn" />
+                <input
+                  type="submit"
+                  value="Save"
+                  className="btn blue darken-4"
+                />
               </Row>
               <Row>
                 <Input

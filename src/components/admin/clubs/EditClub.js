@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { isMobile } from "react-device-detect";
 
 import Header from "../../template/Header";
 import Sidenav from "../../template/Aside";
@@ -25,12 +26,10 @@ class EditClub extends Component {
       courses: [],
       errors: {}
     };
-    console.log(this.props);
     this.swAlert = withReactContent(Swal);
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    // console.log(nextProps.club);
     const { name, description, courses } = nextProps.club;
     this.setState({
       name,
@@ -193,54 +192,56 @@ class EditClub extends Component {
       <React.Fragment>
         <Header branding={`Golf Clubs - Edit "${name}"`} />
         <Sidenav active="edit-club" />
-        <form onSubmit={this.onSubmit} className="row">
-          <div className="col s6">
+        <form
+          onSubmit={this.onSubmit}
+          className="row"
+          style={{ marginTop: "10px" }}
+        >
+          <div className="col s12 m6">
             <Row>
-              <Col s={12}>
-                <Row>
-                  <Input
-                    s={12}
-                    m={12}
-                    label="Name"
-                    type="text"
-                    name="name"
-                    id="name"
-                    labelClassName={name ? "active" : ""}
-                    value={name}
-                    error={errors.name ? errors.name : ""}
-                    onChange={this.onChange}
-                    validate={true}
-                  />
-                </Row>
-              </Col>
+              <Input
+                s={12}
+                m={12}
+                label="Name"
+                type="text"
+                name="name"
+                id="name"
+                labelClassName={name ? "active" : ""}
+                value={name}
+                error={errors.name ? errors.name : ""}
+                onChange={this.onChange}
+                validate={true}
+              />
             </Row>
             <Row>
-              <Col s={12}>
-                <Row>
-                  <Input
-                    s={12}
-                    m={12}
-                    label="Description"
-                    type="textarea"
-                    name="description"
-                    id="description"
-                    labelClassName={description ? "active" : ""}
-                    value={description}
-                    onChange={this.onChange}
-                  />
-                </Row>
-              </Col>
+              <Input
+                s={12}
+                m={12}
+                label="Description"
+                type="textarea"
+                name="description"
+                id="description"
+                labelClassName={description ? "active" : ""}
+                value={description}
+                onChange={this.onChange}
+              />
             </Row>
-            <Row>
-              <input type="submit" value="Save" className="btn btn-sm" />
-            </Row>
+            {!isMobile ? (
+              <Row>
+                <button type="submit" className="btn btn-sm blue darken-4">
+                  SAVE
+                </button>
+              </Row>
+            ) : (
+              ""
+            )}
           </div>
-          <div className="col s6">
+          <div className="col s12 m6">
             <h4 style={{ fontSize: "1.3rem" }}>
               Courses{" "}
               <a
                 href="#!"
-                className="btn btn-sm action-btn"
+                className="btn btn-sm action-btn blue darken-4"
                 onClick={this.onClickAddCourse}
               >
                 <Icon>add</Icon>
@@ -274,6 +275,17 @@ class EditClub extends Component {
               </tbody>
             </table>
           </div>
+          {isMobile ? (
+            <Row>
+              <Col s={12}>
+                <button type="submit" className="btn btn-sm blue darken-4">
+                  SAVE
+                </button>
+              </Col>
+            </Row>
+          ) : (
+            ""
+          )}
         </form>
       </React.Fragment>
     );

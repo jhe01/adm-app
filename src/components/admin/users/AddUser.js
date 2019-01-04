@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { Row, Input } from "react-materialize";
+import { Row, Input, Col, Button } from "react-materialize";
 import { addUser } from "../../../actions/userActions";
 
 import Sidenav from "../../template/Aside";
@@ -215,8 +215,12 @@ class AddUser extends Component {
               error={errors.password2 ? errors.password2 : ""}
             />
           </Row>
-          <Row m={6} s={12}>
-            <input type="submit" value="Save" className="btn btn-sm" />
+          <Row>
+            <Col m={6} s={12}>
+              <Button type="submit" className="btn btn-sm blue darken-4">
+                Save
+              </Button>
+            </Col>
           </Row>
         </form>
       </React.Fragment>

@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import propTypes from "prop-types";
-import { Link } from "react-router-dom";
-import { SideNav, SideNavItem } from "react-materialize";
 
 class Header extends Component {
   render() {
@@ -21,9 +19,7 @@ class Header extends Component {
             >
               <i className="material-icons">menu</i>
             </a>
-            <Link to="/" className="brand-logo" style={{ fontSize: "1.3rem" }}>
-              {branding}
-            </Link>
+            <label className="header-text white-text">{branding}</label>
           </div>
         </nav>
       </div>

@@ -17,6 +17,10 @@ footer {
   padding: 0.612rem 0 0.512rem 0;
 }
 
+.side-nav .sidenav-header a h4 {
+  padding: 0.5rem 0;
+}
+
 .collapsible-header {
   padding: 0 2rem !important;
   color: rgba(0, 0, 0, 0.87) !important;
@@ -62,6 +66,36 @@ footer {
   width: 100%;
 }
 
+@media only screen and (max-width: 360px) {
+  .fc-basic-view .fc-body .fc-row {
+    min-height: 8rem;
+  }
+
+  .calendar-panel-container {
+    max-height: 100%;
+  }
+  .header-text {
+    margin: auto;
+    font-size: 1.1rem;
+  }
+}
+
+@media only screen and (min-width: 361px) {
+  .fc-basic-view .fc-body .fc-row {
+    min-height: 8rem;
+  }
+
+  .header-text {
+    font-size: 1.3rem;
+    margin-left: 5px;
+  }
+
+  .calendar-panel-container {
+    max-height: 730px;
+    overflow-y: auto;
+  }
+}
+
 @media only screen and (min-width: 992px) {
   body {
     padding-left: 300px;
@@ -102,11 +136,6 @@ textarea {
   min-height: 400px !important;
 }
 
-.calendar-panel-container {
-  max-height: 790px;
-  overflow-y: auto;
-}
-
 ::-webkit-scrollbar {
   width: 5px;
 }
@@ -131,7 +160,8 @@ textarea {
   margin-top: 0px;
 }
 
-.card-events .more-btn {
+.card-events .more-btn,
+.card-users .more-btn {
   padding: 0;
 }
 
@@ -145,4 +175,47 @@ textarea {
 
 .view-type-action a.active {
   background-color: #0d47a1 !important;
+}
+
+.collection .collection-header h4 {
+  font-size: 1.28rem;
+}
+
+.action-btn-floating {
+  width: 30px !important;
+  height: 30px !important;
+  line-height: 30px !important;
+}
+
+.action-btn-floating i {
+  line-height: 30px !important ;
+  font-size: 1.4rem;
+}
+
+.input-field .action-btn-prefix {
+  width: 2.4rem !important;
+}
+
+.input-field .btn {
+  padding: 0 0.4rem !important;
+}
+
+button.secondary-content {
+  padding: 0 0.6rem;
+}
+
+.mc-collection {
+  border: none;
+}
+
+.mc-collection .collection-item {
+  padding-left: 10px !important;
+}
+
+.mc-collection .collection-item > div {
+  padding: 10px;
+}
+
+.mc-collection .collection-item > div > button {
+  margin-top: -10px;
 }
