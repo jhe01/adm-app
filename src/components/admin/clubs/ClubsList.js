@@ -31,14 +31,13 @@ class ClubsList extends Component {
         <Header branding="Golf Clubs" />
         <Sidenav active="club-list" />
         <div className="row">
-          <div style={{ marginTop: "10px" }}>
+          <div className="col s12" style={{ marginTop: "10px" }}>
             {!isMobile ? (
               <Link
                 className="btn blue darken-2 header-action-btn left"
                 to="/add-club"
               >
-                Add Golf Club
-                <Icon className="left">add</Icon>
+                NEW
               </Link>
             ) : (
               <div className="fixed-action-btn">
@@ -50,8 +49,6 @@ class ClubsList extends Component {
                 </Link>
               </div>
             )}
-          </div>
-          <div className="col s12">
             <table className="highlight">
               <thead>
                 <tr>

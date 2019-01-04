@@ -124,8 +124,7 @@ class EventList extends Component {
                   className="btn blue darken-2 header-action-btn left"
                   to="/add-event"
                 >
-                  Add Event
-                  <Icon className="left">add</Icon>
+                  NEW
                 </Link>
               )}
             </div>

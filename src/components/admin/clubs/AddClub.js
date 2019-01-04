@@ -13,7 +13,7 @@ class AddClub extends Component {
     description: "",
     errors: {}
   };
-  componentDidMount() {}
+
   onSubmit = e => {
     e.preventDefault();
     const { name, description } = this.state;

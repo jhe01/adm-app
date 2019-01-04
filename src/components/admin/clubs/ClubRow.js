@@ -85,9 +85,6 @@ class ClubRow extends Component {
                 </a>
               </li>
               <li>
-                <Link to={`/edit-club/${club._id}`}>EDIT</Link>
-              </li>
-              <li>
                 <Link to={`/club/${club._id}`}>VIEW</Link>
               </li>
             </Dropdown>
@@ -100,12 +97,6 @@ class ClubRow extends Component {
               >
                 <Icon>{club.is_active ? "clear" : "check"}</Icon>
               </a>
-              <Link
-                to={`/edit-club/${club._id}`}
-                className="btn blue darken-2 action-btn"
-              >
-                <Icon>edit</Icon>
-              </Link>
               <Link
                 to={`/club/${club._id}`}
                 className="btn blue-grey lighten-3 action-btn"

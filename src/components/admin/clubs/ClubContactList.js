@@ -1,22 +1,27 @@
 import React, { Component } from "react";
 
 import EditContact from "./club/EditContact";
+import AddContact from "./club/AddContact";
+
 class ClubContactList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      contacts: this.props.contacts ? this.props.contacts : [],
-      club: this.props.club,
+      contacts: [],
+      club: {},
       isAddContact: this.props.isAddContact ? true : false
     };
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.contacts !== prevProps.contacts) {
-      this.setState({ contacts: this.props.contacts });
+      this.setState({ ...this.state.contacts, contacts: this.props.contacts });
     }
     if (this.props.isAddContact !== prevProps.isAddContact) {
       this.setState({ isAddContact: !this.state.isAddContact });
+    }
+    if (this.props.club !== prevProps.club) {
+      this.setState({ club: this.props.club });
     }
   }
   render() {
@@ -25,16 +30,15 @@ class ClubContactList extends Component {
       <ul className="collection mc-collection">
         {contacts
           ? contacts.map(contact => (
-              <EditContact contact={contact} clubId={club._id} isEdit={false} />
+              <EditContact
+                key={contact._id}
+                contact={contact}
+                clubId={club._id}
+              />
             ))
           : ""}
         {isAddContact ? (
-          <EditContact
-            contact={{}}
-            clubId={club._id}
-            isEdit={false}
-            isAdd={isAddContact}
-          />
+          <AddContact clubId={club._id} afterSave={this.props.afterSave} />
         ) : (
           ""
         )}

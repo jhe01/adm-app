@@ -306,6 +306,42 @@ export default function(state = initialState, action) {
           )
         }
       };
+    case DELETE_CLUB_SOCIAL_MEDIA:
+    case ADD_CLUB_SOCIAL_MEDIA:
+      return {
+        ...state,
+        clubs: state.clubs.map(club => {
+          if (club._id === action.payload.clubid) {
+            delete action.payload.clubid;
+            club.social_media = action.payload;
+          }
+          return club;
+        }),
+        club: {
+          ...state.club,
+          social_media: action.payload
+        }
+      };
+    case UPDATE_CLUB_SOCIAL_MEDIA:
+      return {
+        ...state,
+        clubs: state.clubs.map(club => {
+          if (club._id === action.payload.clubid) {
+            delete action.payload.clubid;
+            const c = club.social_media.map(sm => {
+              return sm._id === action.payload._id ? (sm = action.payload) : sm;
+            });
+            club.social_media = c;
+          }
+          return club;
+        }),
+        club: {
+          ...state.club,
+          social_media: state.club.social_media.map(sm =>
+            sm._id === action.payload[0]._id ? (sm = action.payload[0]) : sm
+          )
+        }
+      };
     default:
       return state;
   }

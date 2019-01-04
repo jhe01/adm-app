@@ -39,6 +39,7 @@ import EditCourse from "./club/EditCourse";
 import EditClubName from "./club/EditClubName";
 import EditMaintenanceDay from "./club/EditMaintenanceDay";
 import ClubContactList from "./ClubContactList";
+import ClubSocialMediaList from "./ClubSocialMediaList";
 
 import {
   Button,
@@ -63,7 +64,8 @@ class Club extends Component {
       isEditCourse: false,
       isAddEditContact: false,
       isAddEditSocialMedia: false,
-      isAddContact: false
+      isAddContact: false,
+      isAddSocialMedia: false
     };
 
     this.swAlert = withReactContent(Swal);
@@ -275,6 +277,10 @@ class Club extends Component {
     this.setState({ isAddEditContact: !this.state.isAddEditContact });
   };
 
+  onClickAddSocialMedia = () => {
+    this.setState({ isAddSocialMedia: !this.state.isAddSocialMedia });
+  };
+
   onClickAddCourse = () => {
     this.swAlert
       .fire({
@@ -320,7 +326,8 @@ class Club extends Component {
       description,
       address,
       maintenance_day,
-      contact
+      contact,
+      social_media
     } = this.state.club;
     const {
       isEditDescription,
@@ -329,6 +336,7 @@ class Club extends Component {
       isEditMaintenanceDay,
       isAddEditContact,
       isAddContact,
+      isAddSocialMedia,
       club,
       isEditName
     } = this.state;
@@ -425,12 +433,21 @@ class Club extends Component {
               </CollectionItem>
               <CollectionItem>
                 <strong>Maintenance Day:</strong>{" "}
-                <button
-                  className="btn-floating btn-small action-btn-floating waves-effect blue darken-2"
-                  onClick={this.onClickEditMaintentnceDay}
-                >
-                  <i className="material-icons">edit</i>
-                </button>
+                {isEditMaintenanceDay ? (
+                  <button
+                    className="btn-floating btn-small action-btn-floating waves-effect red darken-2"
+                    onClick={this.onClickEditMaintentnceDay}
+                  >
+                    <i className="material-icons">close</i>
+                  </button>
+                ) : (
+                  <button
+                    className="btn-floating btn-small action-btn-floating waves-effect blue darken-2"
+                    onClick={this.onClickEditMaintentnceDay}
+                  >
+                    <i className="material-icons">edit</i>
+                  </button>
+                )}
                 {isEditMaintenanceDay ? (
                   <EditMaintenanceDay
                     club={club}
@@ -442,21 +459,53 @@ class Club extends Component {
               </CollectionItem>
               <CollectionItem>
                 <strong>Contacts:</strong>{" "}
-                <button
-                  className="btn-floating btn-small action-btn-floating waves-effect blue darken-4"
-                  onClick={this.onClickAddContact}
-                >
-                  <i className="material-icons">add</i>
-                </button>
+                {isAddContact ? (
+                  <button
+                    className="btn-floating btn-small action-btn-floating waves-effect red darken-4"
+                    onClick={this.onClickAddContact}
+                  >
+                    <i className="material-icons">close</i>
+                  </button>
+                ) : (
+                  <button
+                    className="btn-floating btn-small action-btn-floating waves-effect blue darken-4"
+                    onClick={this.onClickAddContact}
+                  >
+                    <i className="material-icons">add</i>
+                  </button>
+                )}
                 {/* {isAddEditContact ? <EditContact /> : ""} */}
                 <ClubContactList
-                  contacts={contact}
+                  contacts={contact ? contact : []}
                   club={club}
                   isAddContact={isAddContact}
+                  afterSave={this.onClickAddContact}
                 />
               </CollectionItem>
               <CollectionItem>
                 <strong>Social Media:</strong>
+                {isAddSocialMedia ? (
+                  <button
+                    className="btn-floating btn-small action-btn-floating waves-effect red darken-4"
+                    onClick={this.onClickAddSocialMedia}
+                  >
+                    <i className="material-icons">close</i>
+                  </button>
+                ) : (
+                  <button
+                    className="btn-floating btn-small action-btn-floating waves-effect blue darken-4"
+                    onClick={this.onClickAddSocialMedia}
+                  >
+                    <i className="material-icons">add</i>
+                  </button>
+                )}
+                {/* {isAddEditContact ? <EditContact /> : ""} */}
+                <ClubSocialMediaList
+                  social_medias={social_media ? social_media : []}
+                  club={club}
+                  isAddSocialMedia={isAddSocialMedia}
+                  afterSave={this.onClickAddSocialMedia}
+                />
               </CollectionItem>
             </Collection>
           </Col>
@@ -559,7 +608,7 @@ class Club extends Component {
                     {facilities ? (
                       <ClubFacilityList facilities={facilities} />
                     ) : (
-                      <p>No Service Record yet.</p>
+                      <p>No facility record yet.</p>
                     )}
                   </div>
                 </div>

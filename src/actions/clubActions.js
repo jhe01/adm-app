@@ -24,12 +24,17 @@ import {
   DELETE_CLUB_FACILITY,
   GET_CLUB_ALBUM,
   UPLOAD_IMAGE_CLUB_ALBUM,
-  DELETE_IMAGE_CLUB_ALBUM
+  DELETE_IMAGE_CLUB_ALBUM,
+  ADD_CLUB_CONTACT,
+  UPDATE_CLUB_CONTACT,
+  DELETE_CLUB_CONTACT,
+  ADD_CLUB_SOCIAL_MEDIA,
+  UPDATE_CLUB_SOCIAL_MEDIA,
+  DELETE_CLUB_SOCIAL_MEDIA
 } from "./types";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { networkInterfaces } from "os";
 
 const swAlert = withReactContent(Swal);
 
@@ -501,3 +506,151 @@ export const deeteClubAlbumImage = (img, albumId) => async dispatch => {
     });
   }
 };
+
+// *** Contact Actions
+export const addClubContact = args => async dispatch => {
+  const res = await axios.post(
+    `/api/golfclubs/contact/add/${args.clubid}`,
+    args
+  );
+
+  const newContact = res.data;
+  newContact.clubid = args.clubid;
+
+  dispatch({
+    type: ADD_CLUB_CONTACT,
+    payload: newContact
+  });
+
+  if (res.data) {
+    swAlert.fire({
+      title: "Success",
+      type: "success",
+      showConfirmButton: false,
+      timer: 1300
+    });
+  }
+};
+
+export const updateClubContact = args => async dispatch => {
+  const res = await axios.post(
+    `/api/golfclubs/contact/update/${args.clubid}/${args.contactid}`,
+    args
+  );
+
+  if (res.data) {
+    const updatedContacts = res.data;
+    updatedContacts.clubid = args.clubid;
+
+    dispatch({
+      type: UPDATE_CLUB_CONTACT,
+      payload: updatedContacts
+    });
+
+    swAlert.fire({
+      title: "Success",
+      type: "success",
+      showConfirmButton: false,
+      timer: 1300
+    });
+  }
+};
+
+export const deleteClubContact = args => async dispatch => {
+  const res = await axios.delete(
+    `/api/golfclubs/contact/delete/${args.clubid}/${args.contactid}`
+  );
+
+  const updatedContacts = res.data;
+  updatedContacts.clubid = args.clubid;
+
+  dispatch({
+    type: DELETE_CLUB_CONTACT,
+    payload: updatedContacts
+  });
+
+  if (updatedContacts) {
+    swAlert.fire({
+      title: "Success",
+      type: "success",
+      showConfirmButton: false,
+      timer: 1300
+    });
+  }
+};
+
+// *** End Contact Actions
+
+// *** Social Media Actions
+export const addClubSocialMedia = args => async dispatch => {
+  const res = await axios.post(
+    `/api/golfclubs/social-media/add/${args.clubid}`,
+    args
+  );
+
+  const newSocialMedia = res.data;
+  newSocialMedia.clubid = args.clubid;
+
+  dispatch({
+    type: ADD_CLUB_SOCIAL_MEDIA,
+    payload: newSocialMedia
+  });
+
+  if (res.data) {
+    swAlert.fire({
+      title: "Success",
+      type: "success",
+      showConfirmButton: false,
+      timer: 1300
+    });
+  }
+};
+
+export const updateClubSocialMedia = args => async dispatch => {
+  const res = await axios.post(
+    `/api/golfclubs/social-media/update/${args.clubid}/${args.social_media_id}`,
+    args
+  );
+
+  if (res.data) {
+    const updatednewSocialMedia = res.data;
+    updatednewSocialMedia.clubid = args.clubid;
+
+    dispatch({
+      type: UPDATE_CLUB_SOCIAL_MEDIA,
+      payload: updatednewSocialMedia
+    });
+
+    swAlert.fire({
+      title: "Success",
+      type: "success",
+      showConfirmButton: false,
+      timer: 1300
+    });
+  }
+};
+
+export const deleteClubSocialMedia = args => async dispatch => {
+  const res = await axios.delete(
+    `/api/golfclubs/social-media/delete/${args.clubid}/${args.social_media_id}`
+  );
+
+  const updatednewSocialMedia = res.data;
+  updatednewSocialMedia.clubid = args.clubid;
+
+  dispatch({
+    type: DELETE_CLUB_SOCIAL_MEDIA,
+    payload: updatednewSocialMedia
+  });
+
+  if (updatednewSocialMedia) {
+    swAlert.fire({
+      title: "Success",
+      type: "success",
+      showConfirmButton: false,
+      timer: 1300
+    });
+  }
+};
+
+// *** End Social Media Actions
