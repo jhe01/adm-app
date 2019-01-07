@@ -32,10 +32,7 @@ class ClubGalleryContainer extends Component {
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.album !== this.props.album) {
-      this.setState({
-        ...this.state.album,
-        album: this.props.album
-      });
+      this.setState({ album: this.props.album });
     }
   }
   onFileInputChange = e => {
@@ -93,8 +90,12 @@ class ClubGalleryContainer extends Component {
                 <div className="row">
                   <div className="col s12 cards-container">
                     {album.images
-                      ? album.images.map(image => (
-                          <ClubGalleryImage image={image} albumId={album._id} />
+                      ? album.images.map((image, idx) => (
+                          <ClubGalleryImage
+                            key={idx}
+                            image={image}
+                            albumId={album._id}
+                          />
                         ))
                       : ""}
                   </div>

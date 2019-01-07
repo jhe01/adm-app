@@ -256,10 +256,6 @@ export default function(state = initialState, action) {
         }
       };
     case GET_CLUB_ALBUM:
-      return {
-        ...state,
-        album: action.payload
-      };
     case DELETE_IMAGE_CLUB_ALBUM:
     case UPLOAD_IMAGE_CLUB_ALBUM:
       return {

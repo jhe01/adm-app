@@ -16,7 +16,7 @@ import EventRow from "./EventRow";
 import ViewActionButton from "../../util/ViewActionButton";
 import EventListMobile from "./EventListMobile";
 
-import { Icon, Input } from "react-materialize";
+import { Input } from "react-materialize";
 
 class EventList extends Component {
   state = {
@@ -30,6 +30,7 @@ class EventList extends Component {
       this.props.getEvents(true);
     } else {
       this.props.getEventsByClub(this.props.auth.user.club_id._id);
+      console.log("By Club");
     }
     this.props.getClubs();
     this.props.getEventCategory();

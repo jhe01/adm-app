@@ -30,6 +30,10 @@ export const getEvents = isAdmin => async dispatch => {
 };
 
 export const getEventsByClub = id => async dispatch => {
+  dispatch({
+    type: GET_EVENTS,
+    payload: []
+  });
   const res = await axios.post("/api/events/get_by_club", { clubid: id });
   dispatch({
     type: GET_EVENTS,

@@ -18,8 +18,10 @@ class ClubGalleryImage extends Component {
     this.swAlert = withReactContent(Swal);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.image !== this.props.image;
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.image !== prevProps.image) {
+      this.setState({ image: this.props.image });
+    }
   }
 
   onClickDeleteAlbumImage = () => {

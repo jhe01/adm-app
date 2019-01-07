@@ -44,7 +44,6 @@ class ClubService extends Component {
 
   handleOnChangeInput = e => {
     if (e.target.name === "is_allowed") {
-      console.log(e.target.value);
       this.setState({
         serviceEditData: {
           ...this.state.serviceEditData,

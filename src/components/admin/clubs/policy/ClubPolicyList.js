@@ -24,7 +24,6 @@ class ClubPolicyList extends Component {
 
   render() {
     const { policies } = this.state;
-    console.log(policies);
     return (
       <ul>
         {policies
